@@ -335,6 +335,23 @@ class Display {
       ORDER BY `time` DESC
       LIMIT " . $limit);
     $testRunHandler->execute(array('EntityId' => $idp));
-    return $testRunHandler->fetchAll(PDO::FETCH_ASSOC);
+    if ($testruns = $testRunHandler->fetchAll(PDO::FETCH_ASSOC)) {
+      $testrun = $testruns[0];
+      if (count($testruns) > 1) {
+        print "          <h4>Other results</h4>
+            <ul>\n";
+        foreach($testruns as $run) {
+          printf('            <li><a href="./?tab=%s&id=%d">%s</a></li>%s', $tab, $run['id'], $run['time'], "\n");
+          # Check if this run is requested run. In that case save this run
+          if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
+            $testrun = $run;
+          }
+        }
+        print "          </ul>\n";
+      }
+    } else {
+      $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
+    }
+    return $testrun;
   }
 }

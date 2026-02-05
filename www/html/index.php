@@ -207,23 +207,7 @@ printf ('          </ul>
         </div><!-- end collapse -->%s', $federation['instructionsEntityCategoryEnd'], "\n");
 $collapseIcons[] = "entityCategory-instructions";
 if ($result) {
-  if ($testruns = $display->getTestruns($IdP, 'entityCategory')) {
-    $testrun = $testruns[0];
-    if (count($testruns) > 1) {
-      print "          <h4>Other results</h4>
-          <ul>\n";
-      foreach($testruns as $run) {
-        printf('            <li><a href="./?tab=entityCategory&id=%d">%s</a></li>%s', $run['id'], $run['time'], "\n");
-        # Check if this run is requested run. In that case save this run
-        if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-          $testrun = $run;
-        }
-      }
-      print "          </ul>\n";
-    }
-  } else {
-    $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
-  }
+  $testrun = $display->getTestruns($IdP, 'entityCategory');
   printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
   $display->showResultsECTests($IdP, $testrun['id']);
 }
@@ -263,23 +247,7 @@ printf('        </div>
   $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
 $collapseIcons[] = "mfa-instructions";
 if ($result) {
-  if ($testruns = $display->getTestruns($IdP, 'mfa')) {
-    $testrun = $testruns[0];
-    if (count($testruns) > 1) {
-      print "          <h4>Other results</h4>
-          <ul>\n";
-      foreach($testruns as $run) {
-        printf('            <li><a href="./?tab=mfa&id=%d">%s</a></li>%s', $run['id'], $run['time'], "\n");
-        # Check if thus run is requested run. In that vase save this run
-        if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-          $testrun = $run;
-        }
-      }
-      print "          </ul>\n";
-    }
-  } else {
-    $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
-  }
+  $testrun = $display->getTestruns($IdP, 'mfa');
   printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
   $display->showResultsMFA($IdP, $testrun['id']);
 }
@@ -318,23 +286,7 @@ printf('        </div>
   $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
 $collapseIcons[] = "esi-instructions";
 if ($result) {
-  if ($testruns = $display->getTestruns($IdP, 'esi')) {
-    $testrun = $testruns[0];
-    if (count($testruns) > 1) {
-      print "          <h4>Other results</h4>
-          <ul>\n";
-      foreach($testruns as $run) {
-        printf('            <li><a href="./?tab=esi&id=%d">%s</a></li>%s', $run['id'], $run['time'], "\n");
-        # Check if thus run is requested run. In that vase save this run
-        if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-          $testrun = $run;
-        }
-      }
-      print "          </ul>\n";
-    }
-  } else {
-    $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
-  }
+  $testrun = $display->getTestruns($IdP, 'esi');
   printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
   $display->showResultsESI($IdP, $testrun['id']);
 }
