@@ -126,10 +126,12 @@ if (isset($config->getFederation()['metadataTool'])) {
 }
 
 $tab = isset($_GET['tab']) ? $_GET['tab'] : '';
-$html->showHeaders();
+$html->showHTMLHead();
+$html->showContentHeader();
 if (! in_array($_SERVER['saml_eduPersonPrincipalName'], $config->getFederation()['adminUsers'] )) {
     print '<h1>No access</h1>';
-    $html->showFooter();
+    $html->showContentFooter();
+    $html->showScripts();
     exit;
 }
 printf('    <div class="row">
@@ -143,10 +145,10 @@ foreach ($tests as $test => $data) {
     $test, $data['displayName'], "\n");
 }
 printf('          <li class="nav-item">
-            <a class="nav-link%s" href="?tab=MFA">MFA</a>
+            <a class="nav-link%s" href="?tab=mfa">MFA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link%s" href="?tab=ESI">ESI</a>
+            <a class="nav-link%s" href="?tab=esi">ESI</a>
           </li>
           <li class="nav-item">
             <a class="nav-link%s" href="?tab=AllTests">AllTests</a>
@@ -157,15 +159,15 @@ printf('          <li class="nav-item">
         </ul>
       </div>
     </div>%s',
-  $tab == 'MFA' ? HTML_ACTIVE : '', $tab == 'ESI' ? HTML_ACTIVE : '',
+  $tab == 'mfa' ? HTML_ACTIVE : '', $tab == 'esi' ? HTML_ACTIVE : '',
   $tab == 'AllTests' ? HTML_ACTIVE : '', $tab == 'ECS' ? HTML_ACTIVE : '', "\n");
 if (isset($_GET['idp'])) {
   printf ('        <h3>Result for %s</h3>%s', "\n", htmlspecialchars($_GET['idp']));
   switch ($tab) {
-    case 'MFA' :
+    case 'mfa' :
       showTestsIdP('mfa');
       break;
-    case 'ESI' :
+    case 'esi' :
       showTestsIdP('esi');
       break;
     default :
@@ -176,10 +178,10 @@ if (isset($_GET['idp'])) {
     showTab($tab, $tests[$tab], $tested_idps);
   } else {
     switch ($tab) {
-      case 'MFA' :
+      case 'mfa' :
         showMFA($tested_idps);
         break;
-      case 'ESI' :
+      case 'esi' :
         showESI($tested_idps);
         break;
       case 'AllTests' :
@@ -194,7 +196,8 @@ if (isset($_GET['idp'])) {
   $html->addTableSort('resultTable');
 }
 
-$html->showFooter();
+$html->showContentFooter();
+$html->showScripts();
 
 function sends($string,$attribute) {
   return strpos($string, $attribute) !== false;
@@ -369,7 +372,7 @@ function showMFA($tested_idps) {
       $tested_idps[$idp] = true;
 
       printf('            <tr>
-              <td><a href="?tab=MFA&idp=%s">%s</a></td>
+              <td><a href="?tab=mfa&idp=%s">%s</a></td>
               <td>%s</td>%s', $idp, $idp, $testResult['time'], "\n");
       switch ($testResult['testResult']) {
         case 'Supports REFEDS MFA and ForceAuthn.' :
@@ -457,7 +460,7 @@ function showESI($tested_idps) {
       $tested_idps[$idp] = true;
 
       printf('            <tr>
-              <td><a href="?tab=ESI&idp=%s">%s</a></td>
+              <td><a href="?tab=esi&idp=%s">%s</a></td>
               <td>%s</td>%s', $idp, $idp, $testResult['time'], "\n");
       switch ($testResult['testResult']) {
         case 'schacPersonalUniqueCode OK':
@@ -746,33 +749,17 @@ function showEcsStatus() {
 function showTestsIdP($test='entityCategory') {
   $display = new \releasecheck\Display();
   $idp = $_GET['idp'];
-  if ($testruns = $display->getTestruns($idp, $test)) {
-    $testrun = $testruns[0];
-    if (count($testruns) > 1) {
-      print "          <h4>Other results</h4>
-        <ul>\n";
-      foreach($testruns as $run) {
-        printf('            <li><a href="./ops.php?tab=%s&idp=%s&id=%d">%s</a></li>%s', urlencode($_GET['tab']), urlencode($idp), $run['id'], $run['time'], "\n");
-        # Check if thus run is requested run. In that case save this run
-        if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-          $testrun = $run;
-        }
-      }
-      print "          </ul>\n";
-    }
-  } else {
-    $testrun = array ('id' => 0, 'time' => 'no run');
-  }
+  $testrun = $display->getTestruns($idp, $test, 10, './ops.php');
   switch ($test) {
     case 'mfa' :
-      $display->showResultsMFA($idp, $testrun['id']);
+      $display->showResultsMFA($idp, $testrun);
       break;
     case 'esi' :
-      $display->showResultsESI($idp, $testrun['id']);
+      $display->showResultsESI($idp, $testrun);
       break;
     case 'entityCategory' :
     default :
-      $display->showResultsECTests($idp, $testrun['id']);
+      $display->showResultsECTests($idp, $testrun);
       break;
   }
 }

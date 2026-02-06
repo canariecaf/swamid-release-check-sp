@@ -28,7 +28,8 @@ $federation = $config->getFederation();
 $testSuite = $config->getExtendedClass('TestSuite');
 $html = $config->getExtendedClass('HTML');
 
-$html->showHeaders();
+$html->showHTMLHead();
+$html->showContentHeader();
 $display = new \releasecheck\Display();
 
 # Default values
@@ -151,13 +152,13 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
 
   $collapseIcons[] = "attributes-instructions";
 
-  if ($result) {
-    printf (HTML_RESULT_FOR, $displayName, $IdP, '');
-    $display->showAttributeList();
-    $display->showIdpMetadataInfo();
-    $display->showIdpSessionInfo();
-  }
-  printf('      </div><!-- End tab-pane attributes -->
+if ($result) {
+  printf (HTML_RESULT_FOR, $displayName, $IdP, '');
+  $display->showAttributeList();
+  $display->showIdpMetadataInfo();
+  $display->showIdpSessionInfo();
+}
+printf('      </div><!-- End tab-pane attributes -->
       <div class="tab-pane fade %s%s" id="entityCategory"
         role="tabpanel" aria-labelledby="entityCategory-tab">
         <h2>%s Best Practice Attribute Release check</h2>
@@ -169,25 +170,25 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
           <div class="col">
             <a href="https://assurance.%s/%s"><button type="button" class="btn btn-success">Run tests manually</button></a>
           </div>%s',
-    $entityCategoryShow, $entityCategoryActive,
-    $federation['displayName'],
-    $config->basename(),
-    $result ?
-      sprintf('Shibboleth.sso/Login?entityID=%s&target=%s', $IdP,
-        urlencode(sprintf('https://assurance.%s/?quickTest', $config->basename()))
-      ) : '?quickTest',
-    $config->basename(),
-    $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '',
-    "\n");
-  if (! $result ) {
-    # Show button to display result after test-buttons
-    printf('          <div class="col">
+  $entityCategoryShow, $entityCategoryActive,
+  $federation['displayName'],
+  $config->basename(),
+  $result ?
+    sprintf('Shibboleth.sso/Login?entityID=%s&target=%s', $IdP,
+      urlencode(sprintf('https://assurance.%s/?quickTest', $config->basename()))
+    ) : '?quickTest',
+  $config->basename(),
+  $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '',
+  "\n");
+if (! $result ) {
+  # Show button to display result after test-buttons
+  printf('          <div class="col">
             <a href="https://%s/result/?tab=entityCategory">
               <button type="button" class="btn btn-success">Show results</button>
             </a>
           </div>%s', $config->basename(), "\n");
-  }
-  printf('        </div>
+}
+printf('        </div>
         <h3>
           <i id="entityCategory-instructions-icon" class="fas fa-chevron-circle-%s"></i>
           <a data-toggle="collapse" href="#entityCategory-instructions" aria-expanded="%s" aria-controls="entityCategory-instructions">Instructions</a>
@@ -195,39 +196,23 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
         <div class="collapse%s multi-collapse" id="entityCategory-instructions">
           %s
           <ul style="list-style-type:none">%s',
-    $result ? "right" : "down", $instructionsSelected, $instructionsShow, $federation['instructionsEntityCategory'], "\n");
-  foreach ($testSuite->getECTests() as $test) {
-    printf ('            <li>
+  $result ? "right" : "down", $instructionsSelected, $instructionsShow, $federation['instructionsEntityCategory'], "\n");
+foreach ($testSuite->getECTests() as $test) {
+  printf ('            <li>
               <a href="https://%s.%s/Shibboleth.sso/Login?target=%s">%s</a> - %s
             </li>%s', $test, $config->basename(), urlencode(sprintf('https://%s.%s/?singleTest', $test, $config->basename())), $test,
           $testSuite->getTestName($test), "\n");
-  }
-  printf ('          </ul>
+}
+printf ('          </ul>
           %s
         </div><!-- end collapse -->%s', $federation['instructionsEntityCategoryEnd'], "\n");
-  $collapseIcons[] = "entityCategory-instructions";
-  if ($result) {
-    if ($testruns = $display->getTestruns($IdP, 'entityCategory')) {
-      $testrun = $testruns[0];
-      if (count($testruns) > 1) {
-        print "          <h4>Other results</h4>
-          <ul>\n";
-        foreach($testruns as $run) {
-          printf('            <li><a href="./?tab=entityCategory&id=%d">%s</a></li>%s', $run['id'], $run['time'], "\n");
-          # Check if thus run is requested run. In that vase save this run
-          if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-            $testrun = $run;
-          }
-        }
-        print "          </ul>\n";
-      }
-    } else {
-      $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
-    }
-    printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-    $display->showResultsECTests($IdP, $testrun['id']);
-  }
-  printf('      </div><!-- End tab-pane entityCategory -->
+$collapseIcons[] = "entityCategory-instructions";
+if ($result) {
+  $testrun = $display->getTestruns($IdP, 'entityCategory');
+  printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
+  $display->showResultsECTests($IdP, $testrun);
+}
+printf('      </div><!-- End tab-pane entityCategory -->
       <div class="tab-pane fade%s%s" id="mfa-check"
         role="tabpanel" aria-labelledby="mfa-check-tab">
         <h2>SWAMID Best Practice MFA check</h2>
@@ -238,15 +223,15 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
               <button type="button" class="btn btn-success">Run tests</button>
             </a>
           </div>%s',
-    $mfaShow, $mfaActive, $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '', "\n");
-  if (! $result ) {
-    printf('          <div class="col">
+  $mfaShow, $mfaActive, $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '', "\n");
+if (! $result ) {
+  printf('          <div class="col">
             <a href="https://%s/result/?tab=mfa">
               <button type="button" class="btn btn-success">Show results</button>
             </a>
           </div>%s', $config->basename(), "\n");
-  }
-  printf('        </div>
+}
+printf('        </div>
         <h3>
           <i id="mfa-instructions-icon" class="fas fa-chevron-circle-%s"></i>
           <a data-toggle="collapse" href="#mfa-instructions" aria-expanded="%s"
@@ -260,30 +245,14 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
             <li>REFEDS MFA with forceAuthn</li>
           </ol></p>
         </div><!-- end collapse -->%s',
-    $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
-  $collapseIcons[] = "mfa-instructions";
-  if ($result) {
-    if ($testruns = $display->getTestruns($IdP, 'mfa')) {
-      $testrun = $testruns[0];
-      if (count($testruns) > 1) {
-        print "          <h4>Other results</h4>
-          <ul>\n";
-        foreach($testruns as $run) {
-          printf('            <li><a href="./?tab=mfa&id=%d">%s</a></li>%s', $run['id'], $run['time'], "\n");
-          # Check if thus run is requested run. In that vase save this run
-          if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-            $testrun = $run;
-          }
-        }
-        print "          </ul>\n";
-      }
-    } else {
-      $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
-    }
-    printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-    $display->showResultsMFA($IdP, $testrun['id']);
-  }
-  printf('      </div><!-- End tab-pane mfa-check -->
+  $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
+$collapseIcons[] = "mfa-instructions";
+if ($result) {
+  $testrun = $display->getTestruns($IdP, 'mfa');
+  printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
+  $display->showResultsMFA($IdP, $testrun);
+}
+printf('      </div><!-- End tab-pane mfa-check -->
       <div class="tab-pane fade%s%s" id="esi" role="tabpanel" aria-labelledby="esi-tab">
         <h2>%s Best Practice Attribute Release check</h2>
         <br>
@@ -293,16 +262,16 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
               <button type="button" class="btn btn-success">Run tests</button>
             </a>
           </div>%s',
-    $esiShow, $esiActive, $federation['displayName'], $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '',
-    "\n");
-  if (! $result ) {
-    printf('          <div class="col">
+  $esiShow, $esiActive, $federation['displayName'], $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '',
+  "\n");
+if (! $result ) {
+  printf('          <div class="col">
             <a href="https://%s/result/?tab=esi">
               <button type="button" class="btn btn-success">Show results</button>
             </a>
           </div>%s', $config->basename(), "\n");
-  }
-  printf('        </div>
+}
+printf('        </div>
         <h3>
           <i id="esi-instructions-icon" class="fas fa-chevron-circle-%s"></i>
           <a data-toggle="collapse" href="#esi-instructions" aria-expanded="%s"
@@ -315,30 +284,14 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
             for release of attributes from the user\'s identity provider. This test verifies that all required
             attributes are released during login.</p>
         </div><!-- end collapse -->%s',
-    $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
-  $collapseIcons[] = "esi-instructions";
-  if ($result) {
-    if ($testruns = $display->getTestruns($IdP, 'esi')) {
-      $testrun = $testruns[0];
-      if (count($testruns) > 1) {
-        print "          <h4>Other results</h4>
-          <ul>\n";
-        foreach($testruns as $run) {
-          printf('            <li><a href="./?tab=esi&id=%d">%s</a></li>%s', $run['id'], $run['time'], "\n");
-          # Check if thus run is requested run. In that vase save this run
-          if (isset($_GET['id']) && $_GET['id'] == $run['id']) {
-            $testrun = $run;
-          }
-        }
-        print "          </ul>\n";
-      }
-    } else {
-      $testrun = array ('id' => 0, 'time' => HTML_NO_RUN);
-    }
-    printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-    $display->showResultsESI($IdP, $testrun['id']);
-  }
-  printf("      </div><!-- End tab-pane esi -->
+  $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
+$collapseIcons[] = "esi-instructions";
+if ($result) {
+  $testrun = $display->getTestruns($IdP, 'esi');
+  printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
+  $display->showResultsESI($IdP, $testrun);
+}
+printf("      </div><!-- End tab-pane esi -->
       <!-- Include the Seamless Access Sign in Button & Discovery Service -->
       <script src=\"//%s/thiss.js\"></script>
       <script>
@@ -349,4 +302,5 @@ printf ('        <a data-toggle="collapse" href="#selectIdP" aria-expanded="fals
           }).render('#DS-Thiss');
         };
       </script>\n", $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename());
-$html->showFooter($collapseIcons);
+$html->showContentFooter();
+$html->showScripts($collapseIcons);
