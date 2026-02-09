@@ -547,15 +547,17 @@ function showESI($tested_idps) {
             </tr>
           <tfooter>
         </table>%s', "\n");
-  print('        <table class="table table-striped table-bordered">'. "\n");
-  printf ("          <tr><th>SWAMID 2.0 IdP:s not tested</th></tr>\n");
-  foreach ($tested_idps as $idp => $value) {
-    if (! $value ) {
-      printf ("          <tr><td>%s</td></tr>\n", $idp);
+  if (isset($config->getFederation()['metadataTool'])) {
+    printf ('        <table class="table table-striped table-bordered">
+          <tr><th>IdP:s not tested</th></tr>%s', "\n");
+    foreach ($tested_idps as $idp => $value) {
+      if (! $value ) {
+        printf ("          <tr><td>%s</td></tr>\n", $idp);
+      }
     }
+    print "        </table>\n";
   }
-  print "        </table>
-      </div><!-- End col-->
+  print "      </div><!-- End col-->
     </div><!-- End row-->\n";
 }
 
@@ -765,6 +767,7 @@ function showTestsIdP($test='entityCategory') {
 }
 
 function printFooterSummary($okData, $warnData, $failData, $okEC, $warnEC, $failEC, $tested_idps) {
+  global $config;
   printf('          </tbody>
           <tfooter>
             <tr>
@@ -782,15 +785,17 @@ function printFooterSummary($okData, $warnData, $failData, $okEC, $warnEC, $fail
   printf('              </td>
             </tr>
           </tfooter>
-        </table>
-        <table class="table table-striped table-bordered">
-          <tr><th>SWAMID 2.0 IdP:s not tested</th></tr>%s', "\n");
-  foreach ($tested_idps as $idp => $value) {
-    if (! $value ) {
-      printf ('          <tr><td>%s</a></td></tr>%s', $idp, "\n");
+        </table>%s', "\n");
+  if (isset($config->getFederation()['metadataTool'])) {
+    printf ('        <table class="table table-striped table-bordered">
+          <tr><th>IdP:s not tested</th></tr>', "\n");
+    foreach ($tested_idps as $idp => $value) {
+      if (! $value ) {
+        printf ('          <tr><td>%s</a></td></tr>%s', $idp, "\n");
+      }
     }
+    print "        </table>\n";
   }
-  printf('        </table>
-      </div><!-- End col-->
+  printf('      </div><!-- End col-->
     </div><!-- End row-->%s', "\n");
 }
