@@ -231,7 +231,7 @@ class Admin {
       <a href="./admin.php?tab=AllTests&idp=%s">
         <button type="button" class="btn btn-success">Show all EC tests for this IdP</button>
       </a>%s',
-        $this->tests[$tab]['fullName'], htmlspecialchars($selectedIdp), $tab, urldecode($selectedIdp), "\n");
+        $this->tests[$tab]['fullName'], htmlspecialchars($selectedIdp), $tab, urlencode($selectedIdp), "\n");
     } else {
       printf('      <h1>Data based on IdP:s that have run %s test</h1>%s',
        $this->tests[$tab]['fullName'], "\n");
@@ -384,7 +384,7 @@ class Admin {
       <a href="./admin.php?tab=AllTests&idp=%s">
         <button type="button" class="btn btn-success">Show all EC tests for this IdP</button>
       </a>%s',
-        htmlspecialchars($selectedIdp), urldecode($selectedIdp), "\n");
+        htmlspecialchars($selectedIdp), urlencode($selectedIdp), "\n");
     } else {
       printf('      <h1>Data based on IdP:s that have run MFA test</h1>%s',
         "\n");
@@ -508,7 +508,7 @@ class Admin {
         <button type="button" class="btn btn-success">Show all EC tests for this IdP</button>
       </a>
       <br>%s',
-        htmlspecialchars($selectedIdp), urldecode($selectedIdp), "\n");
+        htmlspecialchars($selectedIdp), urlencode($selectedIdp), "\n");
     } else {
       printf('      <h1>Data based on IdP:s that have run ESI test</h1>%s',
         "\n");
