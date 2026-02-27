@@ -167,7 +167,9 @@ class Admin {
    * If you want another key tha subject-id create your own in Admin<extend> class
    */
   public function checkAccess() {
-    return in_array($_SERVER['saml_subject-id'], $this->federation['adminUsers'] );
+    return isset($_SERVER['saml_subject-id']) ?
+      in_array($_SERVER['saml_subject-id'], $this->federation['adminUsers'] ):
+      in_array($_SERVER['saml_eduPersonPrincipalName'], $this->federation['adminUsers'] );
   }
 
   /**
