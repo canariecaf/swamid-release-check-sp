@@ -236,10 +236,12 @@ class IdPCheck {
         $this->checkAnonymous($okValues, $ecs);
         break;
       case 'CoCov1' :
+        $this->checkNumberOfAttributes(sizeof($samlValues));
         $this->checkCoCo($ecs,
           'http://www.geant.net/uri/dataprotection-code-of-conduct/v1'); # NOSONAR Should be http://
         break;
       case 'CoCov2' :
+        $this->checkNumberOfAttributes(sizeof($samlValues));
         $this->checkCoCo($ecs,
           'https://refeds.org/category/code-of-conduct/v2');
         break;
@@ -715,6 +717,26 @@ class IdPCheck {
       } else {
         $this->status['testResult'] = 'Personalized attribute missing, Entity Category Support missing';
       }
+    }
+  }
+
+  /**
+   * Check number of attributes sent
+   *
+   * Check if any attributes are sent / enough attributes are sent
+   * updates status['error'] on error
+   *
+   * @param int $nrOfAttributes Numer of attributes recived
+   *
+   * @param int $minimum Minimun number of attributes needed to pass test
+   *
+   * @return void
+   */
+  protected function checkNumberOfAttributes($nrOfAttributes, $minimum = 3) {
+    if ($nrOfAttributes == 0) {
+      $this->status['error'] .= 'The IDP has not sent any attributes.<br>';
+    } elseif ($nrOfAttributes < $minimum) {
+      $this->status['error'] .= sprintf('The IDP has only sent %d attributes.<br>', $nrOfAttributes) ;
     }
   }
 
