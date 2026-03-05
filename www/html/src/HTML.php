@@ -28,6 +28,7 @@ class HTML {
       $this->config = new Configuration();
     }
     $this->federation = $this->config->getFederation();
+    $localize = new \releasecheck\Localize();
   }
 
   /**
@@ -39,7 +40,7 @@ class HTML {
    */
   public function showHTMLHead($title = "") {
     if ( $title == "" ) {
-      $title = 'Release check for ' . $this->config->getFederation()['displayName'];
+      $title = _('Release check for') . ' ' . $this->config->getFederation()['displayName'];
     }
     $bgColor = 'background-color: ' . ($this->config->getFederation()['backgroundColor'] ?? "unset");
     printf('<!DOCTYPE html>%s<html lang="en" xml:lang="en">%s  <head>
@@ -70,10 +71,16 @@ class HTML {
     $defaultHeader = sprintf('<nav>
         <ul class="nav nav-pills float-right">
           <li role="presentation" class="nav-item">
-            <a href="%s" class="nav-link">About %s</a>
+            <a href="?lang=sv" class="nav-link">Svenska</a>
           </li>
           <li role="presentation" class="nav-item">
-            <a href="%s" class="nav-link">Contact us</a>
+            <a href="?lang=en" class="nav-link">English</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a href="%s" class="nav-link">' . _('About %s') .'</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a href="%s" class="nav-link">%s</a>
           </li>
         </ul>
       </nav>
@@ -83,7 +90,7 @@ class HTML {
         </a> Release-check
       </h3>%s',
     $this->federation['aboutURL'], $this->federation['displayName'],
-    $this->federation['contactURL'],
+    $this->federation['contactURL'], _('Contact us'),
     $this->config->basename(),
     $this->federation['displayName'], $this->federation['logoURL'],
     $this->federation['logoWidth'], $this->federation['logoHeight'],
