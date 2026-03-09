@@ -9,7 +9,7 @@ const HTML_SHIBBOLETH_LOGIN = 'Shibboleth.sso/Login?entityID=';
 
 if (isset($_SERVER['Shib-Identity-Provider']) ) {
   $result = true;
-  $IdP = $_SERVER['Shib-Identity-Provider'];
+  $idp = $_SERVER['Shib-Identity-Provider'];
   $instructionsSelected = 'false';
   $instructionsShow = '';
   //Load composer's autoloader
@@ -17,7 +17,7 @@ if (isset($_SERVER['Shib-Identity-Provider']) ) {
   $displayName = isset($_SERVER['Meta-displayName']) ? $_SERVER['Meta-displayName'] : '';
 } else {
   $result = false;
-  $IdP = '';
+  $idp = '';
   $instructionsSelected = HTML_TRUE;
   $instructionsShow = HTML_SHOW;
   //Load composer's autoloader
@@ -62,9 +62,9 @@ if (isset($_GET['tab'])) {
       $accShow = HTML_SHOW;
       $tab = 'acc';
       if (isset($_POST['accr'])) {
-        createRedirect($_POST, $result, $IdP);
+        createRedirect($_POST, $result, $idp);
       } elseif ($_GET['accr'] && isset($_GET['testForceAuthn'])) {
-        createRedirect(array('accr' => $_GET['accr'], 'force' => true), $result, $IdP);
+        createRedirect(array('accr' => $_GET['accr'], 'force' => true), $result, $idp);
       }
       break;
     case 'entityCategory' :
@@ -129,7 +129,7 @@ printf('    <div class="row">
   $attributesActive, $attributesSelected, $entityCategoryActive, $entityCategorySelected,
   $mfaActive, $mfaSelected, $esiActive, $esiSelected, $accActive, $accSelected, "\n");
 if ($result) {
-        printf ("        <p><span style=\"white-space: nowrwap\"><b>%s</b><br>%s</span></p>\n",$displayName,$IdP);
+        printf ("        <p><span style=\"white-space: nowrwap\"><b>%s</b><br>%s</span></p>\n",$displayName,$idp);
         $admin = $config->getExtendedClass('Admin');
         $adminButton = $admin->checkAccess() ? '<a href="admin.php">
           <button type="button" class="btn btn-primary">Admin</button>
@@ -182,7 +182,7 @@ printf ('        %s
   $collapseIcons[] = "attributes-instructions";
 
 if ($result) {
-  printf (HTML_RESULT_FOR, $displayName, $IdP, '');
+  printf (HTML_RESULT_FOR, $displayName, $idp, '');
   $display->showAttributeList();
   $display->showIdpMetadataInfo();
   $display->showIdpSessionInfo();
@@ -203,11 +203,11 @@ printf('      </div><!-- End tab-pane attributes -->
   $federation['displayName'],
   $config->basename(),
   $result ?
-    sprintf('Shibboleth.sso/Login?entityID=%s&target=%s', $IdP,
+    sprintf('Shibboleth.sso/Login?entityID=%s&target=%s', $idp,
       urlencode(sprintf('https://assurance.%s/?quickTest', $config->basename()))
     ) : '?quickTest',
   $config->basename(),
-  $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '',
+  $result ? HTML_SHIBBOLETH_LOGIN . $idp : '',
   "\n");
 if (! $result ) {
   # Show button to display result after test-buttons
@@ -237,9 +237,9 @@ printf ('          </ul>
         </div><!-- end collapse -->%s', $federation['instructionsEntityCategoryEnd'], "\n");
 $collapseIcons[] = "entityCategory-instructions";
 if ($result) {
-  $testrun = $display->getTestruns($IdP, 'entityCategory');
-  printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-  $display->showResultsECTests($IdP, $testrun);
+  $testrun = $display->getTestruns($idp, 'entityCategory');
+  printf (HTML_RESULT_FOR, $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
+  $display->showResultsECTests($idp, $testrun);
 }
 printf('      </div><!-- End tab-pane entityCategory -->
       <div class="tab-pane fade%s%s" id="mfa-check"
@@ -252,7 +252,7 @@ printf('      </div><!-- End tab-pane entityCategory -->
               <button type="button" class="btn btn-success">Run tests</button>
             </a>
           </div>%s',
-  $mfaShow, $mfaActive, $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '', "\n");
+  $mfaShow, $mfaActive, $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $idp : '', "\n");
 if (! $result ) {
   printf('          <div class="col">
             <a href="https://%s/result/?tab=mfa">
@@ -277,9 +277,9 @@ printf('        </div>
   $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
 $collapseIcons[] = "mfa-instructions";
 if ($result) {
-  $testrun = $display->getTestruns($IdP, 'mfa');
-  printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-  $display->showResultsMFA($IdP, $testrun);
+  $testrun = $display->getTestruns($idp, 'mfa');
+  printf (HTML_RESULT_FOR, $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
+  $display->showResultsMFA($idp, $testrun);
 }
 printf('      </div><!-- End tab-pane mfa-check -->
       <div class="tab-pane fade%s%s" id="esi" role="tabpanel" aria-labelledby="esi-tab">
@@ -291,7 +291,7 @@ printf('      </div><!-- End tab-pane mfa-check -->
               <button type="button" class="btn btn-success">Run tests</button>
             </a>
           </div>%s',
-  $esiShow, $esiActive, $federation['displayName'], $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $IdP : '',
+  $esiShow, $esiActive, $federation['displayName'], $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $idp : '',
   "\n");
 if (! $result ) {
   printf('          <div class="col">
@@ -316,9 +316,9 @@ printf('        </div>
   $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
 $collapseIcons[] = "esi-instructions";
 if ($result) {
-  $testrun = $display->getTestruns($IdP, 'esi');
-  printf (HTML_RESULT_FOR, $displayName,$IdP, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-  $display->showResultsESI($IdP, $testrun);
+  $testrun = $display->getTestruns($idp, 'esi');
+  printf (HTML_RESULT_FOR, $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
+  $display->showResultsESI($idp, $testrun);
 }
 printf('      </div><!-- End tab-pane esi -->
       <div class="tab-pane fade%s%s" id="acc" role="tabpanel" aria-labelledby="acc-tab">
@@ -388,7 +388,7 @@ printf("      </div><!-- End tab-pane acc -->
 $html->showContentFooter();
 $html->showScripts($collapseIcons);
 
-function createRedirect($post, $result, $IdP) {
+function createRedirect($post, $result, $idp) {
   global $config, $idpCheck;
   $redirectURL = sprintf('https://%s/Shibboleth.sso/Login?target=%s',
     $config->basename(),
@@ -397,7 +397,7 @@ function createRedirect($post, $result, $IdP) {
       $post['accr'],
       isset($post['force']) && $post['force'] ? '&forceAuthn' : ''))
   );
-  $redirectURL .= $result ? sprintf('&entityID=%s', urlencode($IdP)) : '';
+  $redirectURL .= $result ? sprintf('&entityID=%s', urlencode($idp)) : '';
   $redirectURL .= isset($idpCheck->getAccrOptions()[$post['accr']])
     ? sprintf('&authnContextClassRef=%s',
       $idpCheck->getAccrOptions()[$post['accr']]['value'])

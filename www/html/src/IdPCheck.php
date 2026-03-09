@@ -110,7 +110,9 @@ class IdPCheck {
    * @return void
    */
   public function __construct() {
-    session_start();
+    if(session_status() !== PHP_SESSION_ACTIVE) {
+      session_start();
+    }
     if (isset($config)) {
       $this->config = $config;
     } else {
@@ -372,7 +374,7 @@ class IdPCheck {
       'eduPersonPrincipalName' => true
     );
 
-    list ($ac,$ecs,$ec) = $this->getMetaInfo();
+    list ($ac,$ecs,$ec) = $this->getMetaInfo(); # NOSONAR getMetaInfo returns 3 params
 
     /**
      *  Save values and warn if multipla values are sent for an single-value attribute.
@@ -1036,19 +1038,16 @@ class IdPCheck {
     if (isset($_GET['forceAuthn'])) {
       # Step2
       $step2 = true;
+      $forceAuthnResult = 'Failed missing old Authentication-Instant. Please restart test';
       if (isset($_SESSION['ts'])) {
         $forceAuthnTime = strtotime($_SERVER['Shib-Authentication-Instant']) - $_SESSION['ts'];
         if ($_SESSION['ts'] <> $_SERVER['Shib-Authentication-Instant']) {
           $forceAuthnSuccess = true;
           $forceAuthnResult = $forceAuthnTime < 600 ? 'OK' : 'Not done within 10 minutes' . $forceAuthnTime;
         } else {
-          $forceAuthnSuccess = false;
           $this->status['error'] .= "Authentication-instant hasn't updated after forceAuthn was requested.<br>";
           $forceAuthnResult = 'Error';
         }
-      } else {
-        print '<div>Please restart this test. Click on "Test" again</div>' . "\n";
-        $forceAuthnResult = 'Failed';
       }
       unset ($_SESSION['ts']);
     } else {
@@ -1076,11 +1075,8 @@ class IdPCheck {
     <h3>Identity Provider sessions attributes</h3>
     <table class="table table-striped table-bordered">
       <tr><th>Attribute</th><th>Value</th></tr>' . "\n";
-    foreach (array('Shib-AuthnContext-Class', 'Shib-Authentication-Instant') as $name) {
-      if ( isset ($_SERVER[$name])) {
-        $this->status['infoText'] .= sprintf ("      <tr><th>%s</th><td>%s</td></tr>\n", substr($name,5), $_SERVER[$name]);
-      }
-    }
+    $this->status['infoText'] .= isset ($_SERVER['Shib-AuthnContext-Class']) ? sprintf ("      <tr><th>AuthnContext-Class</th><td>%s</td></tr>\n", $_SERVER['Shib-AuthnContext-Class']) : '';
+    $this->status['infoText'] .= isset ($_SERVER['Shib-Authentication-Instant']) ? sprintf ("      <tr><th>%Authentication-Instan'</th><td>%s</td></tr>\n", $_SERVER['Shib-Authentication-Instant']) : '';
     $this->status['infoText'] .= "    </table>\n";
 
     $this->status['infoText'] .= '
@@ -1096,26 +1092,23 @@ class IdPCheck {
       if ($forceAuthnSuccess) {
         $this->status['ok'] .= sprintf('Identity Provider supports %s and ForceAuthn.<br>', $accrName);
         $this->status['testResult'] = sprintf('Supports %s and ForceAuthn.', $accrName);
+      } elseif ($step2) {
+        $this->status['error'] .= sprintf('Identity Provider supports %s but not ForceAuthn.<br>', $accrName);
+        $this->status['testResult'] = sprintf('Supports %s but not ForceAuthn.', $accrName);
       } else {
-        if ($step2) {
-          $this->status['error'] .= sprintf('Identity Provider supports %s but not ForceAuthn.<br>', $accrName);
-          $this->status['testResult'] = sprintf('Supports %s but not ForceAuthn.', $accrName);
-        } else {
-          $this->status['ok'] .= sprintf('Identity Provider supports %s.<br>', $accrName);
-          $this->status['testResult'] = sprintf('Supports %s.', $accrName);
-        }
+        $this->status['ok'] .= sprintf('Identity Provider supports %s.<br>', $accrName);
+        $this->status['testResult'] = sprintf('Supports %s.', $accrName);
       }
     } else {
       if ($forceAuthnSuccess) {
         $this->status['error'] .= sprintf('Identity Provider does support ForceAuthn but not %s.<br>', $accrName);
         $this->status['testResult'] = sprintf('Does support ForceAuthn but not %s.', $accrName);
+      } elseif ($step2) {
+        $this->status['error'] .= sprintf('Identity Provider does neither support %s or ForceAuthn.<br>', $accrName);
+        $this->status['testResult'] = sprintf('Does neither support %s or ForceAuthn.', $accrName);
       } else {
-        if ($step2) {
-          $this->status['error'] .= sprintf('Identity Provider does neither support %s or ForceAuthn.<br>', $accrName);
-          $this->status['testResult'] = sprintf('Does neither support %s or ForceAuthn.', $accrName);
-        } else {
-          $this->status['error'] .=  sprintf('Identity Provider does not support %s.<br>', $accrName);
-        }
+        $this->status['error'] .=  sprintf('Identity Provider does not support %s.<br>', $accrName);
+        $this->status['testResult'] = sprintf('Does not support %s.', $accrName);
       }
     }
   }

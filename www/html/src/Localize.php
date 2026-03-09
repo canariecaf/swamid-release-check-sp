@@ -16,17 +16,19 @@ class Localize {
       session_start();
     }
 
-    $selectedLang = false;
+    $selectedLang = '';
 
     if (isset($_GET['lang'])) {
+      $selectedLang = 'en';
       if ($_GET['lang'] == 'sv') {
         $selectedLang = 'sv_SE';
       } else {
         $selectedLang = 'en';
       }
+      $_SESSION['lang'] = $selectedLang;
     }
     elseif (isset($_SESSION['lang'])) {
-      $this->setLocale($_SESSION['lang']);
+      $selectedLang = $_SESSION['lang'];
     } else {
       $langs = array();
 
@@ -50,7 +52,7 @@ class Localize {
 
       // look through sorted list and use first one that matches our languages
       foreach ($langs as $lang => $val) {
-        if (! $selectedLang ) {
+        if ($selectedLang == '' ) {
           switch ($lang) {
             case 'sv' :
             case 'sv-SE' :
@@ -66,11 +68,8 @@ class Localize {
         }
       }
     }
-    if ($selectedLang) {
-      if ($selectedLang != 'en') {
-        $this->setLocale($selectedLang);
-      }
-      $_SESSION['lang'] = $selectedLang;
+    if ($selectedLang != '') {
+      $this->setLocale($selectedLang);
     }
   }
 

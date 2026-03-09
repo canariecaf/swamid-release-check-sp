@@ -28,7 +28,7 @@ class HTML {
       $this->config = new Configuration();
     }
     $this->federation = $this->config->getFederation();
-    $localize = new \releasecheck\Localize();
+    new \releasecheck\Localize();
   }
 
   /**
