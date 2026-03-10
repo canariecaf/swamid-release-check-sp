@@ -1076,7 +1076,7 @@ class IdPCheck {
     <table class="table table-striped table-bordered">
       <tr><th>Attribute</th><th>Value</th></tr>' . "\n";
     $this->status['infoText'] .= isset ($_SERVER['Shib-AuthnContext-Class']) ? sprintf ("      <tr><th>AuthnContext-Class</th><td>%s</td></tr>\n", $_SERVER['Shib-AuthnContext-Class']) : '';
-    $this->status['infoText'] .= isset ($_SERVER['Shib-Authentication-Instant']) ? sprintf ("      <tr><th>%Authentication-Instan'</th><td>%s</td></tr>\n", $_SERVER['Shib-Authentication-Instant']) : '';
+    $this->status['infoText'] .= isset ($_SERVER['Shib-Authentication-Instant']) ? sprintf ("      <tr><th>Authentication-Instan'</th><td>%s</td></tr>\n", $_SERVER['Shib-Authentication-Instant']) : '';
     $this->status['infoText'] .= "    </table>\n";
 
     $this->status['infoText'] .= '
