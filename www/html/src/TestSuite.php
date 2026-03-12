@@ -136,17 +136,6 @@ class TestSuite {
       ),
       'subtest'  => 'CoCov2',
     ),
-    'mfa'          => array (
-      'name'     => 'MFA Check',
-      'tab'      => 'mfa',
-      'expected' => array (
-        'eduPersonPrincipalName' => self::DESC_EDUPERSONPRINCIPALNAME,
-        'eduPersonAssurance'     => self::DESC_EDUPERSONASSURANCE,
-      ),
-      'nowarn'   => array (
-      ),
-      'subtest'  => 'MFA',
-    ),
     'noec'         => array (
       'name'     => 'No EC (shall not send any attributes!)',
       'tab'      => 'entityCategory',
@@ -233,13 +222,6 @@ class TestSuite {
    * @return void
    */
   public function __construct() {
-    $order['mfa'] = isset($_GET['forceAuthn']) ?
-      array (
-        'last' => 'mfa',
-        'next' => 'result') :
-      array (
-        'last' => '',
-        'next' => 'mfa');
   }
 
   /**

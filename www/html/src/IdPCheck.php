@@ -272,9 +272,6 @@ class IdPCheck {
       case 'ESI' :
         $this->checkESI($okValues);
         break;
-      case 'MFA' :
-        $this->checkMFA($okValues, $ac);
-        break;
       case 'personalized' :
         $this->checkPersonalized($okValues, $ecs);
         break;

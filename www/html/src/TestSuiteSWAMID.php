@@ -84,9 +84,6 @@ class TestSuiteSWAMID extends TestSuite {
     $this->tests['assurance']['expected']['eduPersonAssurance'] =
      'User assurance information. SWAMID Identity Assurance Profiles can only be asserted for a user if and only if both the organisation and the user is validated for the assurance level. Furthermore, REFEDS Assurance Framework information should be released based on SWAMID Assurance level for the user.';
 
-    $this->tests['mfa']['name'] = 'SWAMID MFA Check';
-    $this->tests['mfa']['expected']['eduPersonAssurance'] = $this->tests['assurance']['expected']['eduPersonAssurance'];
-
     $this->tests['pseudonymous']['expected']['eduPersonAssurance'] = $this->tests['assurance']['expected']['eduPersonAssurance'];
 
     $this->tests['personalized']['expected']['eduPersonAssurance'] = $this->tests['assurance']['expected']['eduPersonAssurance'];
