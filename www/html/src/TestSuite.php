@@ -104,10 +104,18 @@ class TestSuite {
       'name'     => 'Assurance Attribute test',
       'tab'      => 'entityCategory',
       'expected' => array (
-        'eduPersonPrincipalName' => self::DESC_EDUPERSONPRINCIPALNAME,
         'eduPersonAssurance'     => self::DESC_EDUPERSONASSURANCE,
       ),
-      'nowarn'   => array (),
+      'nowarn'   => array (
+        'eduPersonPrincipalName'     => '',
+        'displayName'                => '',
+        'eduPersonScopedAffiliation' => '',
+        'givenName'                  => '',
+         'mail'                      => '',
+         'schacHomeOrganization'     => '',
+         'sn'                        => '',
+         'subject-id'                => '',
+      ),
       'subtest'  => 'RAF',
     ),
     'cocov2'     => array (
