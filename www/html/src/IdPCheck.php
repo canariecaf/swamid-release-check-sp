@@ -668,7 +668,7 @@ class IdPCheck {
         foreach ($checkArray as $part) {
           if (! isset($checkOKArray[$part])) {
             $this->status['warning'] .=
-              'SWAMID recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
+              $this->config->getFederation()['displayName'] . ' recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
           }
         }
       } else {
@@ -743,7 +743,7 @@ class IdPCheck {
         foreach ($checkArray as $part) {
           if (! isset($checkOKArray[$part])) {
             $this->status['warning'] .=
-              'SWAMID recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
+              $this->config->getFederation()['displayName'] . ' recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
           }
         }
       } else {
