@@ -330,9 +330,13 @@ printf("      </div><!-- End tab-pane esi -->
           // Render the Seamless Access button
           thiss.DiscoveryComponent({
             loginInitiatorURL: 'https://%s/Shibboleth.sso/%s?target=https://%s/result',
+            %s
+            %s
           }).render('#DS-Thiss');
         };
-      </script>\n", $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename());
+      </script>\n", $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
+      isset($federation['entityID']) ? sprintf('entityID: \'%s\',',$federation['entityID']) : '',
+      isset($federation['trustProfile']) ? sprintf('trustProfile: \'%s\',', $federation['trustProfile']) : '');
 $html->showContentFooter();
 $html->showScripts($collapseIcons);
 
