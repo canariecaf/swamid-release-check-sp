@@ -40,6 +40,9 @@ $federation = array(
   # If not set defaults to service.seamlessaccess.org and Login';
   #'DS' => 'service.seamlessaccess.org',
   #'LoginURL' => 'DS/seamless-access',
+  # Optional if you want to use profiles in magiq-button. Should alline with what is configured in shibboleth2.xml
+  #'entityID' => 'https://release-check.dev-edugain.swamid.se/shibboleth',
+  #'trustProfile' => 'edugain',
 
   # Optional if you want to fetch existiong IdP:s from a Metadata Tool
   #'metadataTool' => 'metadata.qa.swamid.se',

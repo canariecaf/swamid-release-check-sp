@@ -231,8 +231,7 @@ class Display {
     $baseTest = $row['test'] == 'esi-stud' ? 'esi' : $row['test'];
     $singleTest = sprintf('?singleTest%s', $session == '' ? '' : sprintf('&session=%s', $session));
     $target = sprintf('https://%s.%s/%s',
-        $baseTest, $this->config->basename(),
-        $baseTest == 'mfa' ? '' : $singleTest);
+        $baseTest, $this->config->basename(), $singleTest);
     $button = sprintf('<a href="https://%s.%s/Shibboleth.sso/Login?entityID=%s&target=%s">
                   <button type="button" class="btn btn-link">%s</button>
                 </a>',

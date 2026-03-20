@@ -229,9 +229,7 @@ class IdPCheck {
         $samlValues[$nkey] = $value;
         if (! isset($this->expected[$nkey]) ) {
           $extraValues[$nkey] = $value;
-          if ( isset( $this->nowarn[$nkey] ) ) {
-            $this->status['warning'] = 'The IDP has sent too many attributes.<br>';
-          } else {
+          if ( ! isset( $this->nowarn[$nkey] ) ) {
             $this->status['error'] = 'The IDP has sent too many attributes.<br>';
           }
         }
@@ -271,9 +269,6 @@ class IdPCheck {
         break;
       case 'ESI' :
         $this->checkESI($okValues);
-        break;
-      case 'MFA' :
-        $this->checkMFA($okValues, $ac);
         break;
       case 'personalized' :
         $this->checkPersonalized($okValues, $ecs);
@@ -353,7 +348,7 @@ class IdPCheck {
       }
 
       if (count ($extraValues) ) {
-        $this->showAttributeTable('Attributes that were not requested/expected', $extraValues, true);
+        $this->showAttributeTable('Attributes that were not requested/expected/needed', $extraValues, true);
       }
     }
   }
@@ -388,7 +383,6 @@ class IdPCheck {
       }
     }
 
-    print "        <br>\n";
     $expectedAccr = isset($this->accrOptions[$requestedAccr])
       ? $this->accrOptions[$requestedAccr]['value']
       : $_SERVER['Shib-AuthnContext-Class'];
@@ -673,7 +667,7 @@ class IdPCheck {
         foreach ($checkArray as $part) {
           if (! isset($checkOKArray[$part])) {
             $this->status['warning'] .=
-              'SWAMID recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
+              $this->config->getFederation()['displayName'] . ' recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
           }
         }
       } else {
@@ -748,7 +742,7 @@ class IdPCheck {
         foreach ($checkArray as $part) {
           if (! isset($checkOKArray[$part])) {
             $this->status['warning'] .=
-              'SWAMID recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
+              $this->config->getFederation()['displayName'] . ' recommends that eduPersonAssurance contains ' . self::RAF_BASE . '/' . $part . '.<br>';
           }
         }
       } else {
@@ -1040,10 +1034,10 @@ class IdPCheck {
       $step2 = true;
       $forceAuthnResult = 'Failed missing old Authentication-Instant. Please restart test';
       if (isset($_SESSION['ts'])) {
-        $forceAuthnTime = strtotime($_SERVER['Shib-Authentication-Instant']) - $_SESSION['ts'];
+        $forceAuthnTime = strtotime($_SERVER['Shib-Authentication-Instant']) - strtotime($_SESSION['ts']);
         if ($_SESSION['ts'] <> $_SERVER['Shib-Authentication-Instant']) {
           $forceAuthnSuccess = true;
-          $forceAuthnResult = $forceAuthnTime < 600 ? 'OK' : 'Not done within 10 minutes' . $forceAuthnTime;
+          $forceAuthnResult = $forceAuthnTime < 600 ? 'OK' : sprintf ('Not done within 10 minutes! Was done in %d seconds', $forceAuthnTime) ;
         } else {
           $this->status['error'] .= "Authentication-instant hasn't updated after forceAuthn was requested.<br>";
           $forceAuthnResult = 'Error';
@@ -1052,15 +1046,15 @@ class IdPCheck {
       unset ($_SESSION['ts']);
     } else {
       # Step1
-      $_SESSION['ts'] = time();
-      $_SESSION['accr'] = $requestedAccr;
+      $_SESSION['ts'] = $_SERVER['Shib-Authentication-Instant'];
+      $_SESSION['accr'] = $_SERVER['Shib-AuthnContext-Class'];
       $forceAuthnResult = 'Not tested';
     }
 
-    $this->status['infoText'] = sprintf('    <h3>Test result</h3>%s    <table class="table table-striped table-bordered">%s',
+    $this->status['infoText'] = sprintf('        <h3>Test result</h3>%s        <table class="table table-striped table-bordered">%s',
       "\n", "\n");
-    $this->status['infoText'] .= sprintf('      <tr><th>ACCR status</th><td>%s</td></tr>%s', $accrCorrect ? "OK" : "Error", "\n");
-    $this->status['infoText'] .= sprintf('      <tr><th>ForceAuthn status</th><td>%s</td></tr>%s', $forceAuthnResult, "\n");
+    $this->status['infoText'] .= sprintf('          <tr><th>ACCR status</th><td>%s</td></tr>%s', $accrCorrect ? "OK" : "Error", "\n");
+    $this->status['infoText'] .= sprintf('          <tr><th>ForceAuthn status</th><td>%s</td></tr>%s', $forceAuthnResult, "\n");
 
     $this->showRAFAttributeStatus('AL1 status','http://www.swamid.se/policy/assurance/al1'); # NOSONAR Should be http://
     $this->showRAFAttributeStatus('AL2 status','http://www.swamid.se/policy/assurance/al2'); # NOSONAR Should be http://
@@ -1069,24 +1063,16 @@ class IdPCheck {
     $this->showRAFAttributeStatus('RAF Medium status', self::RAF_MEDIUM);
     $this->showRAFAttributeStatus('RAF High status', self::RAF_HIGH);
 
-    $this->status['infoText'] .= sprintf('    </table>%s', "\n");
+    $this->status['infoText'] .= sprintf('        </table>%s', "\n");
 
     $this->status['infoText'] .= '
-    <h3>Identity Provider sessions attributes</h3>
-    <table class="table table-striped table-bordered">
-      <tr><th>Attribute</th><th>Value</th></tr>' . "\n";
-    $this->status['infoText'] .= isset ($_SERVER['Shib-AuthnContext-Class']) ? sprintf ("      <tr><th>AuthnContext-Class</th><td>%s</td></tr>\n", $_SERVER['Shib-AuthnContext-Class']) : '';
-    $this->status['infoText'] .= isset ($_SERVER['Shib-Authentication-Instant']) ? sprintf ("      <tr><th>Authentication-Instan'</th><td>%s</td></tr>\n", $_SERVER['Shib-Authentication-Instant']) : '';
-    $this->status['infoText'] .= "    </table>\n";
-
-    $this->status['infoText'] .= '
-    <h3>Identity Provider approved Assurance</h3>
-    <table class="table table-striped table-bordered">' . "\n";
+        <h3>Identity Provider approved Assurance</h3>
+        <table class="table table-striped table-bordered">' . "\n";
     if (isset($_SERVER['Meta-Assurance-Certification'])) {
       $value = str_replace(';' , '<br>',$_SERVER['Meta-Assurance-Certification']);
       $this->status['infoText'] .= sprintf ("          <tr><th>Assurance-Certification</th><td>%s</td></tr>\n", $value);
     }
-    $this->status['infoText'] .= "    </table>\n";
+    $this->status['infoText'] .= "        </table>\n";
 
     if ($accrCorrect) {
       if ($forceAuthnSuccess) {
@@ -1124,7 +1110,7 @@ class IdPCheck {
    */
   protected function showRAFAttributeStatus($text, $attributeValue) {
     if (isset($this->rafAttributes[$attributeValue]) && $this->rafAttributes[$attributeValue]['status'] <> 'NotExpected') {
-      $this->status['infoText'] .= sprintf('      <tr><th>%s</th><td>%s</td></tr>%s',
+      $this->status['infoText'] .= sprintf('          <tr><th>%s</th><td>%s</td></tr>%s',
         $text, $this->rafAttributes[$attributeValue]['status'], "\n");
     }
   }
@@ -1179,7 +1165,7 @@ class IdPCheck {
   }
 
   /**
-   * Get a list of testAccrOptions
+   * Get a list of accrOptions
    *
    * @return array
    */

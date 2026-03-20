@@ -42,10 +42,6 @@ $entityCategoryActive='';
 $entityCategorySelected='false';
 $entityCategoryShow='';
 #
-$mfaActive='';
-$mfaSelected='false';
-$mfaShow='';
-#
 $esiActive='';
 $esiSelected='false';
 $esiShow='';
@@ -79,12 +75,6 @@ if (isset($_GET['tab'])) {
       $esiShow = HTML_SHOW;
       $tab = 'esi';
       break;
-    case 'mfa' :
-      $mfaActive = HTML_ACTIVE;
-      $mfaSelected = HTML_TRUE;
-      $mfaShow = HTML_SHOW;
-      $tab = 'mfa';
-      break;
     default:
       $attributesActive = HTML_ACTIVE;
       $attributesSelected = HTML_TRUE;
@@ -107,27 +97,25 @@ printf('    <div class="row">
               role="tab" aria-controls="attributes" aria-selected="%s">Attributes</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link%s" id="acc-tab" data-toggle="tab" href="#acc"
+              role="tab" aria-controls="acc" aria-selected="%s">Authentication</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link%s" id="entityCategory-tab" data-toggle="tab"
               href="#entityCategory" role="tab" aria-controls="entityCategory"
               aria-selected="%s">Entity category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link%s" id="mfa-check-tab" data-toggle="tab" href="#mfa-check"
-              role="tab" aria-controls="mfa-check" aria-selected="%s">MFA</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link%s" id="esi-tab" data-toggle="tab" href="#esi"
               role="tab" aria-controls="esi" aria-selected="%s">ESI</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link%s" id="acc-tab" data-toggle="tab" href="#acc"
-              role="tab" aria-controls="acc" aria-selected="%s">Auth</a>
           </li>
         </ul>
       </div>
       <div class="col-4 text-right">%s',
-  $attributesActive, $attributesSelected, $entityCategoryActive, $entityCategorySelected,
-  $mfaActive, $mfaSelected, $esiActive, $esiSelected, $accActive, $accSelected, "\n");
+  $attributesActive, $attributesSelected,
+  $accActive, $accSelected,
+  $entityCategoryActive, $entityCategorySelected,
+  $esiActive, $esiSelected, "\n");
 if ($result) {
         printf ("        <p><span style=\"white-space: nowrwap\"><b>%s</b><br>%s</span></p>\n",$displayName,$idp);
         $admin = $config->getExtendedClass('Admin');
@@ -188,6 +176,102 @@ if ($result) {
   $display->showIdpSessionInfo();
 }
 printf('      </div><!-- End tab-pane attributes -->
+      <div class="tab-pane fade%s%s" id="acc" role="tabpanel" aria-labelledby="acc-tab">
+        <h2>%s AuthnContextClassRef tester</h2>
+        <br>
+        <h3>
+          <i id="acc-instructions-icon" class="fas fa-chevron-circle-%s"></i>
+          <a data-toggle="collapse" href="#acc-instructions" aria-expanded="%s"
+            aria-controls="acc-instructions">
+            Instructions
+          </a>
+        </h3>
+        <div class="collapse%s multi-collapse" id="acc-instructions">
+          <p>The Authentication test is a two step process. The first step is to test an AuthnContextClassRef and the second step is to verify that forceAuthn works as expected for that AuthnContextClassRef.
+          The restults from this tests are NOT saved exept for tests done with REFEDS MFA.</p>
+        </div><!-- end collapse -->%s',
+  $accShow, $accActive, $federation['displayName'],
+  $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
+$collapseIcons[] = "acc-instructions";
+$accr = isset($_REQUEST['accr']) ? $_REQUEST['accr'] : 'none';
+printf('        <div class="row">
+          <div class="col">
+            <h4>Step 1</h4>
+            Choose AuthnContextClassRef to test:
+            <form action="./?tab=acc" method="POST">
+              <input type="radio" id="none" name="accr" value="none"%s>
+              <label for="none">No authnContextClassRef</label><br>%s',
+  $accr == 'none' ? HTML_CHECKED : '',
+  "\n");
+foreach ($idpCheck->getAccrOptions() as $key => $accrArray) {
+  printf('              <input type="radio" id="%s" name="accr" value="%s"%s>
+              <label for="%s">%s</label><br>%s',
+    $key, $key, $key == $accr ? HTML_CHECKED : '',
+    $key, $accrArray['description'],
+    "\n");
+}
+printf('              <button type="submit" name="action" class="btn btn-success">Test AuthnContextClassRef</button><br>
+            </form>%s', "\n");
+if ($result) {
+  $expectedAccr = isset($idpCheck->accrOptions[$accr])
+    ? $idpCheck->accrOptions[$accr]['value']
+    : $_SERVER['Shib-AuthnContext-Class'];
+  printf('          </div>
+          <div class="col">
+            <h4>Step 2</h4>%s', "\n");
+
+  if ($expectedAccr == $_SERVER['Shib-AuthnContext-Class']) {
+    if (isset($_GET['forceAuthn'])) {
+      printf('            <p>Rerun "Test AuthnContextClassRef" to get a fresh Authentication-Instant to be able to run "Test forceAuthN" again.<p>%s',"\n");
+    } else {
+      printf('            <p>Test that forceAuthn return a newer Authentication-Instant than in step 1. The same AuthnContextClassRef is used as in step 1.<p>
+              <a href="?tab=acc&accr=%s&testForceAuthn"><button type="button" class="btn btn-success">Test forceAuthN</button></a>%s',
+        $accr, "\n");
+    }
+  }
+  printf('          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">%s', "\n");
+  if (isset($_GET['forceAuthn']) && isset($_SESSION['ts'])) {
+    #Step 2 OK
+    printf('            Recieved in Step 1:
+            <ul>
+              <li>AuthnContext-Class: %s</li>
+              <li>Authentication-Instant: %s</li>
+            </ul>
+          </div>
+          <div class="col">
+            Recieved in Step 2:
+            <ul>
+              <li>AuthnContext-Class: %s</li>
+              <li>Authentication-Instant: %s</li>
+            </ul>%s',
+    $_SESSION['accr'], $_SESSION['ts'],
+    $_SERVER['Shib-AuthnContext-Class'], $_SERVER['Shib-Authentication-Instant'], "\n");
+  } elseif (isset($_GET['forceAuthn'])) {
+    # Step 2 after refresh. Should not be done!!
+    printf('            <br>
+            Refresh/Reload is not allowed while testing forceAuthn.<br>
+            Please rerun "Test AuthnContextClassRef"%s', "\n");
+  } else {
+    #Step 1
+    printf('            <br>
+            Recieved in Step 1:<ul>
+              <li>AuthnContext-Class: %s</li>
+              <li>Authentication-Instant: %s</li>
+            </ul>%s',
+    $_SERVER['Shib-AuthnContext-Class'], $_SERVER['Shib-Authentication-Instant'], "\n");
+  }
+  printf( '          </div>
+        </div>%s', "\n");
+  $idpCheck->testACCR($accr);
+} else {
+  printf('          </div>
+        </div>%s', "\n");
+}
+printf('      </div><!-- End tab-pane acc -->
       <div class="tab-pane fade %s%s" id="entityCategory"
         role="tabpanel" aria-labelledby="entityCategory-tab">
         <h2>%s Best Practice Attribute Release check</h2>
@@ -242,46 +326,6 @@ if ($result) {
   $display->showResultsECTests($idp, $testrun);
 }
 printf('      </div><!-- End tab-pane entityCategory -->
-      <div class="tab-pane fade%s%s" id="mfa-check"
-        role="tabpanel" aria-labelledby="mfa-check-tab">
-        <h2>SWAMID Best Practice MFA check</h2>
-        <br>
-        <div class="row">
-          <div class="col">
-            <a href="https://mfa.%s/%s">
-              <button type="button" class="btn btn-success">Run tests</button>
-            </a>
-          </div>%s',
-  $mfaShow, $mfaActive, $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $idp : '', "\n");
-if (! $result ) {
-  printf('          <div class="col">
-            <a href="https://%s/result/?tab=mfa">
-              <button type="button" class="btn btn-success">Show results</button>
-            </a>
-          </div>%s', $config->basename(), "\n");
-}
-printf('        </div>
-        <h3>
-          <i id="mfa-instructions-icon" class="fas fa-chevron-circle-%s"></i>
-          <a data-toggle="collapse" href="#mfa-instructions" aria-expanded="%s"
-            aria-controls="mfa-instructions">
-            Instructions
-          </a>
-        </h3>
-        <div class="collapse%s multi-collapse" id="mfa-instructions">
-          <p>SWAMID MFA test. This is a two part test<ol>
-            <li>REFEDS MFA without forceAuthn</li>
-            <li>REFEDS MFA with forceAuthn</li>
-          </ol></p>
-        </div><!-- end collapse -->%s',
-  $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
-$collapseIcons[] = "mfa-instructions";
-if ($result) {
-  $testrun = $display->getTestruns($idp, 'mfa');
-  printf (HTML_RESULT_FOR, $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-  $display->showResultsMFA($idp, $testrun);
-}
-printf('      </div><!-- End tab-pane mfa-check -->
       <div class="tab-pane fade%s%s" id="esi" role="tabpanel" aria-labelledby="esi-tab">
         <h2>%s Best Practice Attribute Release check</h2>
         <br>
@@ -320,61 +364,8 @@ if ($result) {
   printf (HTML_RESULT_FOR, $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
   $display->showResultsESI($idp, $testrun);
 }
-printf('      </div><!-- End tab-pane esi -->
-      <div class="tab-pane fade%s%s" id="acc" role="tabpanel" aria-labelledby="acc-tab">
-        <h2>%s AuthnContextClassRef tester</h2>
-        <br>
-        <h3>
-          <i id="acc-instructions-icon" class="fas fa-chevron-circle-%s"></i>
-          <a data-toggle="collapse" href="#acc-instructions" aria-expanded="%s"
-            aria-controls="acc-instructions">
-            Instructions
-          </a>
-        </h3>
-        <div class="collapse%s multi-collapse" id="acc-instructions">
-          <p>Different tests for AuthnContextClassRef. The restults from this tests are NOT saved exept for tests done with REFEDS MFA.</p>
-        </div><!-- end collapse -->%s',
-  $accShow, $accActive, $federation['displayName'],
-  $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
-$collapseIcons[] = "acc-instructions";
-$accr = isset($_REQUEST['accr']) ? $_REQUEST['accr'] : 'none';
-printf('        <div class="row">
-          <div class="col">
-            <form action="./?tab=acc" method="POST">
-              <input type="radio" id="none" name="accr" value="none"%s>
-              <label for="none">No authnContextClassRef</label><br>%s',
-  $accr == 'none' ? HTML_CHECKED : '',
-  "\n");
-foreach ($idpCheck->getAccrOptions() as $key => $accrArray) {
-  printf('              <input type="radio" id="%s" name="accr" value="%s"%s>
-              <label for="%s">%s</label><br>%s',
-    $key, $key, $key == $accr ? HTML_CHECKED : '',
-    $key, $accrArray['description'],
-    "\n");
-}
-printf('              <button type="submit" name="action" class="btn btn-success">Test</button><br>
-            </form>
-          </div>%s', "\n");
-if ($result ) {
-  $expectedAccr = isset($idpCheck->accrOptions[$accr])
-    ? $idpCheck->accrOptions[$accr]['value']
-    : $_SERVER['Shib-AuthnContext-Class'];
-  if ($expectedAccr == $_SERVER['Shib-AuthnContext-Class']) {
-    printf('          <div class="col">
-            <p>Got expected AuthnContext-Class</p>
-            <p>Press button below to test with forceAuthn.<p>
-            <a href="?tab=acc&accr=%s&testForceAuthn"><button type="button" class="btn btn-success">forceAuthN</button></a>
-          </div>
-        </div>%s', $accr, "\n");
-  } else {
-    printf('        </div>%s', "\n");
-  }
-  $idpCheck->testACCR($accr);
-} else {
-  printf('        </div>%s', "\n");
-}
 
-printf("      </div><!-- End tab-pane acc -->
+printf("      </div><!-- End tab-pane esi -->
       <!-- Include the Seamless Access Sign in Button & Discovery Service -->
       <script src=\"//%s/thiss.js\"></script>
       <script>
@@ -382,9 +373,13 @@ printf("      </div><!-- End tab-pane acc -->
           // Render the Seamless Access button
           thiss.DiscoveryComponent({
             loginInitiatorURL: 'https://%s/Shibboleth.sso/%s?target=https://%s/result',
+            %s
+            %s
           }).render('#DS-Thiss');
         };
-      </script>\n", $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename());
+      </script>\n", $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
+      isset($federation['entityID']) ? sprintf('entityID: \'%s\',',$federation['entityID']) : '',
+      isset($federation['trustProfile']) ? sprintf('trustProfile: \'%s\',', $federation['trustProfile']) : '');
 $html->showContentFooter();
 $html->showScripts($collapseIcons);
 

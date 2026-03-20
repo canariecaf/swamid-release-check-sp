@@ -2,7 +2,6 @@
 namespace releasecheck;
 
 class TestSuiteSWAMID extends TestSuite {
-  protected const DESC_SUBJECTID_NOWARN = 'Its value for a given subject is independent of the relying party to whom it is given (not recomended for this test, but should be sent if pairwise-id isn\'t sent) .';
 
   /**
    * Tests that should be in the list for EntityCategory tests
@@ -84,9 +83,6 @@ class TestSuiteSWAMID extends TestSuite {
     $this->tests['assurance']['expected']['eduPersonAssurance'] =
      'User assurance information. SWAMID Identity Assurance Profiles can only be asserted for a user if and only if both the organisation and the user is validated for the assurance level. Furthermore, REFEDS Assurance Framework information should be released based on SWAMID Assurance level for the user.';
 
-    $this->tests['mfa']['name'] = 'SWAMID MFA Check';
-    $this->tests['mfa']['expected']['eduPersonAssurance'] = $this->tests['assurance']['expected']['eduPersonAssurance'];
-
     $this->tests['pseudonymous']['expected']['eduPersonAssurance'] = $this->tests['assurance']['expected']['eduPersonAssurance'];
 
     $this->tests['personalized']['expected']['eduPersonAssurance'] = $this->tests['assurance']['expected']['eduPersonAssurance'];
@@ -95,7 +91,6 @@ class TestSuiteSWAMID extends TestSuite {
 
     $this->tests['esi']['name'] = 'SWAMID Entity Category Release Check - European Student Identifier';
     $this->tests['esi']['expected']['schacPersonalUniqueCode'] = 'Usually used within SWAMID for the European Student Identifier.';
-
   }
 
   /**
@@ -125,8 +120,8 @@ class TestSuiteSWAMID extends TestSuite {
         'eduPersonAssurance'         => $this->tests['assurance']['expected']['eduPersonAssurance'],
       ),
       'nowarn'   => array (
-        'persistent-id' => self::DESC_PERSISTENTID,
-        'transient-id'  => self::DESC_TRANSIENTID,
+        'persistent-id' => '',
+        'transient-id'  => '',
       ),
       'subtest'  => 'CoCov1',
     );
@@ -147,8 +142,8 @@ class TestSuiteSWAMID extends TestSuite {
         'schacHomeOrganization'  =>self::DESC_SCHACHOMEORGANIZATION,
       ),
       'nowarn'   => array (
-        'persistent-id' => self::DESC_PERSISTENTID,
-        'transient-id'  => self::DESC_TRANSIENTID,
+        'persistent-id' => '',
+        'transient-id'  => '',
       ),
       'subtest'  => 'CoCov1',
     );
@@ -165,8 +160,8 @@ class TestSuiteSWAMID extends TestSuite {
         'mail'                   => self::DESC_MAIL,
       ),
       'nowarn'   => array (
-        'persistent-id' => self::DESC_PERSISTENTID,
-        'transient-id'  => self::DESC_TRANSIENTID,
+        'persistent-id' => '',
+        'transient-id'  => '',
       ),
       'subtest'  => 'CoCov1',
     );
@@ -191,8 +186,8 @@ class TestSuiteSWAMID extends TestSuite {
         'personalIdentityNumber'     => 'Swedish 12 digit Socialsecuritynumber. Same as in passport',
       ),
       'nowarn'   => array (
-        'persistent-id' => self::DESC_PERSISTENTID,
-        'transient-id'  => self::DESC_TRANSIENTID,
+        'persistent-id' => '',
+        'transient-id'  => '',
       ),
       'subtest'  => 'CoCov2',
     );
@@ -214,8 +209,8 @@ class TestSuiteSWAMID extends TestSuite {
         'subject-id'             => self::DESC_SUBJECTID,
       ),
       'nowarn'   => array (
-        'persistent-id' => self::DESC_PERSISTENTID,
-        'transient-id'  => self::DESC_TRANSIENTID,
+        'persistent-id' => '',
+        'transient-id'  => '',
       ),
       'subtest'  => 'CoCov2',
     );
@@ -233,9 +228,9 @@ class TestSuiteSWAMID extends TestSuite {
         'mail'                   => self::DESC_MAIL,
       ),
       'nowarn'   => array (
-        'subject-id'    => self::DESC_SUBJECTID_NOWARN,
-        'persistent-id' => self::DESC_PERSISTENTID,
-        'transient-id'  => self::DESC_TRANSIENTID,
+        'subject-id'    => '',
+        'persistent-id' => '',
+        'transient-id'  => '',
       ),
       'subtest'  => 'CoCov2',
     );

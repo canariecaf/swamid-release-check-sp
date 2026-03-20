@@ -29,15 +29,7 @@ if ($testInfo = $testSuite->getTest($test)) {
     $html = $config->getExtendedClass('HTML');
     $html->showHTMLHead($testInfo['name']);
     $html->showContentHeader();
-    if ($test == 'mfa') {
-       if (isset($_GET['forceAuthn'])) {
-        $IdPTest->showTestHeaders('mfa','result',$singleTest);
-      } else {
-        $IdPTest->showTestHeaders('','mfa',$singleTest,true);
-      }
-    } else {
-      $IdPTest->showTestHeaders($order['last'], $order['next'],$singleTest);
-    }
+    $IdPTest->showTestHeaders($order['last'], $order['next'],$singleTest);
     $IdPTest->testAttributes($testInfo['subtest']);
     $html->showContentFooter();
     $html->showScripts();
