@@ -147,7 +147,7 @@ msgstr "Logga in"
 #: www/html/index.php:191 www/html/result/index.php:191
 #, php-format
 msgid "The Authentication test is a two step process."
-msgstr "Authentication testet är en 2 stegs precess."
+msgstr "Authentication testet är en 2 stegs process."
 
 #: www/html/index.php:192 www/html/result/index.php:192
 #, php-format
@@ -162,7 +162,7 @@ msgstr ""
 #, php-format
 msgid "The results from this tests are NOT saved exept for tests done with REFEDS MFA."
 msgstr ""
-"Resultaten från denna test är INTE sparad förutom de som är gjorda med REFEDS MFA."
+"Resultaten från dessa test är INTE sparad förutom de som är gjorda med REFEDS MFA."
 
 #: www/html/index.php:201 www/html/result/index.php:201
 #, php-format
@@ -204,7 +204,7 @@ msgid ""
 "Test that forceAuthn return a newer Authentication-Instant than in step 1. The same "
 "AuthnContextClassRef is used as in step 1."
 msgstr ""
-"Testar att forceAuthn returerar en nyare Authentication-Instant än den i steg 1. "
+"Testar att forceAuthn returnerar en nyare Authentication-Instant än den i steg 1. "
 "Samma AuthnContextClassRef är används som i steg 1."
 
 #: www/html/index.php:230 www/html/result/index.php:230
@@ -261,7 +261,7 @@ msgstr "Kör tester"
 #: www/html/index.php:358 www/html/result/index.php:358
 #, php-format
 msgid "European Student Identifier uses the entity category"
-msgstr "European Student Identifier använder entitets kategorin"
+msgstr "European Student Identifier använder entitetskategorin"
 
 #: www/html/index.php:360 www/html/result/index.php:360
 #, php-format
@@ -486,7 +486,7 @@ msgstr "Beskrivning av alla test i testsviten för %s"
 
 #: www/html/src/Configuration.php:70
 msgid "The Attributes tab shows all attributes the service release to the entityId"
-msgstr "Attribut fliken visar alla attribut som släpps till entityId"
+msgstr "Attribut-fliken visar alla attribut som släpps till entityId"
 
 #: www/html/src/Configuration.php:70
 msgid "The entityId uses the entity categories"
@@ -509,7 +509,7 @@ msgid ""
 "The Authentication tab checks if an Identity Provider is correctly configured for "
 "handling request for different AuthnContextClassRef requests."
 msgstr ""
-"Autentisering fliken kontrollerar om en Identitetsutfärdare är korrekt konfigurerad "
+"Autentisering-fliken kontrollerar om en Identitetsutfärdare är korrekt konfigurerad "
 "för att hantera förfrågningar med olika AuthnContextClassRef."
 
 #: www/html/src/Configuration.php:76
@@ -517,7 +517,7 @@ msgid ""
 "The Entity category tab does an exetensive testing of that an Identity Provider "
 "follows Best Practice for attribute release via entity categories."
 msgstr ""
-"Entitetskategorifliken gör en utförlig test av att en Identitetsutfärdare följer "
+"Entitetskategori-fliken gör en utförlig test av att en Identitetsutfärdare följer "
 "Best Practice för att släppa attribut via entitetskategorier."
 
 #: www/html/src/Configuration.php:77
@@ -525,7 +525,7 @@ msgid ""
 "The ESI tab verifies if the Identity Provider release the right attributes for the "
 "European Digital Student Service Infrastructure."
 msgstr ""
-"ESI fliken verifierar om en Identitetsutfärdare släpper korrekta attribut till "
+"ESI-fliken verifierar om en Identitetsutfärdare släpper korrekta attribut till "
 "Infrastrukturen kring European Digital Student Service."
 
 #: www/html/src/Configuration.php:80
@@ -550,7 +550,7 @@ msgstr ""
 "För att tjänster inom %s federationen skall fungera så bra som möjligt, "
 "rekommenderar %s att entitetskategorier används. Entitetskategorier förenklar inte "
 "enbart för studenter och personal utan även administratörerna av tjänster och "
-"Identitetsutfärdare genom att stödja ett väletablerat framverk för att släppa "
+"Identitetsutfärdare genom att stödja ett väletablerat ramverk för att släppa "
 "attribut."
 
 #: www/html/src/Configuration.php:82
@@ -915,7 +915,7 @@ msgstr "Saknar viss Assurance information."
 
 #: www/html/src/DatabaseTexts.php:175
 msgid "Assurance attribute release for current user follows REFED's recommendations."
-msgstr "Assurance attribut som släpps för användaren följer REFED's rekommendationer."
+msgstr "Assurance-attribut som släpps för användaren följer REFED's rekommendationer."
 
 #: www/html/src/DatabaseTexts.php:177
 msgid "Sends recommended Assurance information."
@@ -1128,7 +1128,7 @@ msgid ""
 "and attribute release for current user follows SWAMID's recommendations."
 msgstr ""
 "Identitetsutfärdarens är godkänd för minst en SWAMID Identity Assurance Profil och "
-"and Assurance attribut som släpps för användaren följer SWAMID's rekommendationer."
+"and Assurance-attribut som släpps för användaren följer SWAMID's rekommendationer."
 
 #: www/html/src/Display.php:54 www/html/src/Display.php:74 www/html/src/Display.php:121
 #: www/html/src/IdPCheck.php:431
@@ -1144,7 +1144,7 @@ msgstr "Identitetsutfärdarens attribut i metadatan"
 #: www/html/src/Display.php:119
 #, php-format
 msgid "Identity Provider sessions attributes"
-msgstr "Identitetsutfärdarens sessions attribut"
+msgstr "Identitetsutfärdarens sessions-attribut"
 
 #: www/html/src/Display.php:147 www/html/src/Display.php:185
 #: www/html/src/Display.php:216 www/html/src/IdPCheck.php:175
@@ -1284,17 +1284,17 @@ msgstr "AuthnContext-Class = %s var begärd<br>men %s mottogs."
 #: www/html/src/IdPCheck.php:966 www/html/src/IdPCheckSWAMID.php:200
 #, php-format
 msgid "Assurance Levels"
-msgstr "Assurance nivåer"
+msgstr "Assurance-nivåer"
 
 #: www/html/src/IdPCheck.php:968 www/html/src/IdPCheckSWAMID.php:203
 #, php-format
 msgid "Assurance Level of user"
-msgstr "Assurance nivå på användaren"
+msgstr "Assurance-nivå på användaren"
 
 #: www/html/src/IdPCheck.php:970 www/html/src/IdPCheckSWAMID.php:205
 #, php-format
 msgid "Received Assurance Values"
-msgstr "Mottagna Assurance värden"
+msgstr "Mottagna Assurance-värden"
 
 #: www/html/src/IdPCheck.php:972 www/html/src/IdPCheckSWAMID.php:207
 msgid "None"
