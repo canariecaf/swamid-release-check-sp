@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Release check 1\n"
 "Report-Msgid-Bugs-To: bjorn@sunet.se\n"
-"POT-Creation-Date: 2026-04-23 10:13+0200\n"
+"POT-Creation-Date: 2026-04-23 13:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -509,7 +509,7 @@ msgstr ""
 
 #: www/html/src/Configuration.php:76
 msgid ""
-"The Entity category tab does an exetensive testing of that an Identity "
+"The Entity category tab does an extensive testing of that an Identity "
 "Provider follows Best Practice for attribute release via entity categories."
 msgstr ""
 
@@ -1148,12 +1148,12 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: www/html/src/HTML.php:105
+#: www/html/src/HTML.php:104
 #, php-format
 msgid "About %s"
 msgstr ""
 
-#: www/html/src/HTML.php:118
+#: www/html/src/HTML.php:117
 msgid "Contact us"
 msgstr ""
 
