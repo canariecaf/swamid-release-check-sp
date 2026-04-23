@@ -276,7 +276,7 @@ if ($result) {
 printf('      </div><!-- End tab-pane acc -->
       <div class="tab-pane fade %s%s" id="entityCategory"
         role="tabpanel" aria-labelledby="entityCategory-tab">
-        <h2>' . _('%s Best Practice Attribute Release check') . '</h2>
+        <h2>' . _('%s Attribute Release check') . '</h2>
         <br>
         <div class="row">
           <div class="col">
@@ -329,7 +329,7 @@ if ($result) {
 }
 printf('      </div><!-- End tab-pane entityCategory -->
       <div class="tab-pane fade%s%s" id="esi" role="tabpanel" aria-labelledby="esi-tab">
-        <h2>' . _('%s Best Practice Attribute Release check') . '</h2>
+        <h2>' . _('%s Attribute Release check') . '</h2>
         <br>
         <div class="row">
           <div class="col">

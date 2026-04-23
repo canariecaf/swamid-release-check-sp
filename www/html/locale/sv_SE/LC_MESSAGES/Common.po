@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Release check 1\n"
 "Report-Msgid-Bugs-To: bjorn@sunet.se\n"
-"POT-Creation-Date: 2026-04-17 16:37+0200\n"
-"PO-Revision-Date: 2026-04-17 17:02+0200\n"
+"POT-Creation-Date: 2026-04-23 10:13+0200\n"
+"PO-Revision-Date: 2026-04-23 10:15:0200\n"
 "Last-Translator: Björn Mattsson <Bjorn@sunet.se>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -234,8 +234,8 @@ msgstr "Vänligen kör om \"Testa authnContextClassRef\""
 #: www/html/index.php:279 www/html/index.php:332 www/html/result/index.php:279
 #: www/html/result/index.php:332
 #, php-format
-msgid "%s Best Practice Attribute Release check"
-msgstr "%s Best Practice Attribut Release check"
+msgid "%s Attribute Release check"
+msgstr "%s Attribut Release check"
 
 #: www/html/index.php:283 www/html/result/index.php:283
 #, php-format

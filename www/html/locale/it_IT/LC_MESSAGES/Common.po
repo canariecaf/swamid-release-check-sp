@@ -223,7 +223,7 @@ msgstr "Ricevuto nel passaggio 2"
 #: www/html/index.php:279 www/html/index.php:332 www/html/result/index.php:279
 #: www/html/result/index.php:332
 #, php-format
-msgid "%s Best Practice Attribute Release check"
+msgid "%s Attribute Release check"
 msgstr ""
 
 #: www/html/index.php:283 www/html/result/index.php:283
