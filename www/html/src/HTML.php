@@ -28,7 +28,6 @@ class HTML {
       $this->config = new Configuration();
     }
     $this->federation = $this->config->getFederation();
-    $localize = new \releasecheck\Localize(); # NOSONAR We need ti initalize this class
   }
 
   /**
@@ -67,14 +66,39 @@ class HTML {
   }
 
   public function showContentHeader() {
+    $localize = new \releasecheck\Localize();
+    $flag = $this->config->getLanguages()[$localize->getLang()]['flag'];
     $header = '    <div class="header">';
-    $defaultHeader = sprintf('<nav>
+    $defaultHeader = '<nav>
         <ul class="nav nav-pills float-right">
-          <li role="presentation" class="nav-item">
-            <a href="?lang=sv" class="nav-link">Svenska</a>
-          </li>
-          <li role="presentation" class="nav-item">
-            <a href="?lang=en" class="nav-link">English</a>
+          <li role="presentation" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <img src="https://flagcdn.com/h20/' . $flag . '.png"
+                srcset="https://flagcdn.com/h40/' . $flag . '.png 2x, https://flagcdn.com/h60/' . $flag . '.png 3x"
+                height="20"
+                alt="' . $localize->getLang() . '"> ' . _('Language') . '</a>
+            <div class="dropdown-menu">' ."\n";
+    if ($_SERVER['QUERY_STRING'] == '') {
+      $queryString = '?lang=';
+    } else {
+      $queryString = '?';
+      foreach(explode('&', $_SERVER['QUERY_STRING']) as $param) {
+        $queryString .= substr($param, 0 , 5) == 'lang=' ? '' : $param . '&';
+      }
+      $queryString .= 'lang=';
+    }
+    foreach ($this->config->getLanguages() as $lang => $info) {
+      $defaultHeader .= sprintf('              <a class="dropdown-item" href="%s%s">
+                <img src="https://flagcdn.com/h20/%s.png"
+                  srcset="https://flagcdn.com/h40/%s.png 2x, https://flagcdn.com/h60/%s.png 3x"
+                  height="20"
+                  alt="%s"> %s (%s)
+              </a>%s',
+        $queryString, $lang,
+        $info['flag'], $info['flag'], $info['flag'],
+        $info['name'],$info['name'], $lang, "\n");
+    }
+    $defaultHeader .= sprintf('            </div>
           </li>
           <li role="presentation" class="nav-item">
             <a href="%s" class="nav-link">' . _('About %s') .'</a>

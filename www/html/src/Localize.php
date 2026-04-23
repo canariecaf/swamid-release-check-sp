@@ -6,6 +6,17 @@ namespace releasecheck;
  */
 class Localize {
 
+  private string $locale = '';
+  private array $locale2Lang = [
+    '' => 'en',
+    'en_GB' => 'en',
+    'fr_FR' => 'fr',
+    'it_IT' => 'it',
+    'ro_RO' => 'ro',
+    'sr_RS' => 'sr',
+    'sv_SE' => 'sv',
+  ];
+
   /**
    * Setup the class
    *
@@ -15,18 +26,49 @@ class Localize {
     if(session_status() !== PHP_SESSION_ACTIVE) {
       session_start();
     }
+    $this->selectTranslation();
+  }
 
-    $selectedLang = '';
+  public function getLang()
+  {
+    return $this->locale2Lang[$this->locale];
+  }
 
-    if (isset($_GET['lang'])) {
-      $selectedLang = 'en';
-      if ($_GET['lang'] == 'sv') {
-        $selectedLang = 'sv_SE';
-      }
-      $_SESSION['lang'] = $selectedLang;
+  public function startTranslate()
+  {
+    if ($this->locale != '') {
+      $this->setLocale($this->locale);
     }
-    elseif (isset($_SESSION['lang'])) {
-      $selectedLang = $_SESSION['lang'];
+  }
+
+  private function selectTranslation()
+  {
+    if (isset($_GET['lang'])) {
+      switch ($_GET['lang']) {
+        case 'fr':
+          $this->locale = 'fr_FR';
+          break;
+        case 'it':
+          $this->locale = 'it_IT';
+          break;
+        case 'ro':
+          $this->locale = 'ro_RO';
+          break;
+        case 'sr':
+          $this->locale = 'sr_RS';
+          break;
+        case 'sv':
+          # Swedish
+          $this->locale = 'sv_SE';
+          break;
+        case 'en':
+        default:
+          $this->locale = '';
+      }
+      $_SESSION['locale'] = $this->locale;
+    }
+    elseif (isset($_SESSION['locale'])) {
+      $this->locale = $_SESSION['locale'];
     } else {
       $langs = array();
 
@@ -49,25 +91,40 @@ class Localize {
       }
 
       // look through sorted list and use first one that matches our languages
+      // https://simplelocalize.io/data/locales/ for other codes
       foreach ($langs as $lang => $val) {
-        if ($selectedLang == '' ) {
+        if ($this->locale == '' ) {
           switch ($lang) {
-            case 'sv' :
-            case 'sv-SE' :
-              $selectedLang = 'sv_SE';
+            case 'en':
+            case 'en-GB':
+            case 'en-US':
+              $this->locale = 'en_GB';
               break;
-            case 'en-GB' :
-            case 'en-US' :
-            case 'en' :
-              $selectedLang = 'en';
+            case 'fr':
+            case 'fr-CA':
+            case 'fr-FR':
+              $this->locale = 'fr_FR';
+              break;
+            case 'it':
+            case 'it-IT':
+              $this->locale = 'it_IT';
+              break;
+            case 'ro':
+            case 'ro_RO':
+              $this->locale = 'ro_RO';
+              break;
+            case 'sr':
+            case 'sr-RS':
+              $this->locale = 'sr_RS';
+              break;
+            case 'sv':
+            case 'sv-SE':
+              $this->locale = 'sv_SE';
               break;
             default:
           }
         }
       }
-    }
-    if ($selectedLang != '') {
-      $this->setLocale($selectedLang);
     }
   }
 

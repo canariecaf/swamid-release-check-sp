@@ -15,6 +15,15 @@ class Configuration {
   private string $basename = '';
 
   /**
+   * Array of languages to offer translation for
+   * key = lang (sv for sweden NOT se)
+   * array of
+   * * name (Name of language in local spelling)
+   * * flag (flag could be sv)
+   */
+  private array $languages = array();
+
+  /**
    * Informatiom about the federation running the application
    */
   private array $federation = array();
@@ -38,9 +47,11 @@ class Configuration {
    * @return void
    */
   public function __construct($startDB = true) {
+    $localize = new \releasecheck\Localize();
+    $localize->startTranslate();
     include __DIR__ . '/../config.php'; # NOSONAR
 
-    $reqParams = array('db', 'basename', 'federation');
+    $reqParams = array('db', 'basename', 'federation', 'languages');
     $reqParamsDB = array('servername', 'username', 'password',
       'name');
     $reqParamsFederation = array(
@@ -53,32 +64,23 @@ class Configuration {
       'extend' => '',
       'DS' => 'service.seamlessaccess.org',
       'LoginURL' => 'Login',
-      'instructionsAttributes' => '<p>Click on the green button to see what attributes your Identity Provider releases.</p>
-          <p>Description of all test available in the eduGAIN test suite:
+      'instructionsAttributes' => '<p>' . _('Click on the green button to see what attributes your Identity Provider releases.') . '</p>
+          <p>' . sprintf(_('Description of all test available in the %s test suite'), $federation['displayName']) . ':
             <ul>
-              <li>The Attributes tab shows all attributes the service release to the entityId https://release-check.<org>.<tld>/shibboleth. The entityId uses the entity categories:<ul>
-                <li>REFEDS Personalized Access Entity Category,</li>
-                <li>REFEDS Research and Scholarship Entity Category, and</li>
-                <li>REFEDS Data Protection Code of Conduct ver 2.0 Entity Category.</li>
+              <li>' . _('The Attributes tab shows all attributes the service release to the entityId') . sprintf(' https://%s/shibboleth. ', $basename) . _('The entityId uses the entity categories') . ':<ul>
+                <li>' . _('REFEDS Personalized Access Entity Category') . ',</li>
+                <li>' . _('REFEDS Research and Scholarship Entity Category, and') . '</li>
+                <li>' . _('REFEDS Data Protection Code of Conduct ver 2.0 Entity Category') . '.</li>
               </ul></li>
-              <li>The Entity category tab does an exetensive testing of that an Identity Provider follows
-                Best Practice for attribute release via entity categories.</li>
-              <li>The MFA tab checks if an Identity Provider is correctly configured for handling request
-                for multi-factor login.</li>
-              <li>The ESI tab verifies if the Identity Provider release the right attributes for the
-                European Digital Student Service Infrastructure.</li>
+              <li>' . _('The Authentication tab checks if an Identity Provider is correctly configured for handling request for different AuthnContextClassRef requests.') . '</li>
+              <li>' . _('The Entity category tab does an exetensive testing of that an Identity Provider follows Best Practice for attribute release via entity categories.') . '</li>
+              <li>' . _('The ESI tab verifies if the Identity Provider release the right attributes for the European Digital Student Service Infrastructure.') . '</li>
             </ul>
           </p>',
-      'instructionsEntityCategory' => '<p>In order for eduGAIN to work as effectively as possible for students and employees as well as for
-            service providers and identity providers, eduGAIN recommends that service providers use
-            entity categories to get the attributes that they require.</p>
-          <p>In order for services within the eduGAIN federation to work as effectively as possible, eduGAIN recommends
-            the use of entity categories. Entity categories benefits not only students and employees but also
-            administrators of relying and identity providers by providing a
-            stable framework for the release of attributes.</p>
-          <p>The eduGAIN best practice attribute release check consists of the following tests:</p>',
-      'instructionsEntityCategoryEnd' => '<p>Multiple Code of Conduct test require different attributes which the IdP either SHOULD or SHOULD NOT
-            release in accordance REFEDS/GÉANT Code of Conduct.</p>',
+      'instructionsEntityCategory' => '<p>' . sprintf(_('In order for %s to work as effectively as possible for students and employees as well as for service providers and identity providers, %s recommends that service providers use entity categories to get the attributes that they require.'), $federation['displayName'], $federation['displayName']) . '</p>
+          <p>' . sprintf(_('In order for services within the %s federation to work as effectively as possible, %s recommends the use of entity categories. Entity categories benefits not only students and employees but also administrators of relying and identity providers by providing a stable framework for the release of attributes.'), $federation['displayName'], $federation['displayName']) . '</p>
+          <p>' . sprintf(_('The %s best practice attribute release check consists of the following tests'), $federation['displayName']) . ':</p>',
+      'instructionsEntityCategoryEnd' => '<p>' . sprintf(_('Multiple Code of Conduct test require different attributes which the IdP either SHOULD or SHOULD NOT release in accordance REFEDS/%s Code of Conduct.'), 'GÉANT') . '</p>',
     );
 
     if (! isset($template)) {
@@ -106,6 +108,9 @@ class Configuration {
     $this->checkParams($db, $reqParamsDB, 'db');
 
     $this->checkParams($federation,$reqParamsFederation, 'federation', $defaultValuesFederation);
+
+    # Language array
+    $this->languages = $languages;
 
     # Federation params
     $this->federation = $federation;
@@ -182,6 +187,11 @@ class Configuration {
     if ($dbVersion < 1) {
       $this->createTables();
     }
+    if ($dbVersion < 2) {
+      $this->db->query('ALTER TABLE `testRuns`
+          CHANGE `session` `session` varchar(40) DEFAULT NULL');
+      $this->db->query("UPDATE params SET value = 1 WHERE `id` = 'dbVersion'");
+    }
   }
 
   /**
@@ -198,7 +208,7 @@ class Configuration {
         `value` text DEFAULT NULL
       );');
     $this->db->query(
-      "INSERT INTO `params` (`id`, `value`) VALUES ('dbVersion', '1');");
+      "INSERT INTO `params` (`id`, `value`) VALUES ('dbVersion', '2');");
 
     $this->db->query(
       'CREATE TABLE `idps` (
@@ -212,7 +222,7 @@ class Configuration {
       'CREATE TABLE `testRuns` (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
         `idp_id` int(10) unsigned NOT NULL,
-        `session` varchar(27) DEFAULT NULL,
+        `session` varchar(40) DEFAULT NULL,
         `time` text DEFAULT NULL,
         PRIMARY KEY (`id`),
         KEY `idp_id` (`idp_id`),
@@ -278,6 +288,17 @@ class Configuration {
    */
   public function getTemplate() {
     return $this->template;
+  }
+
+  /**
+   * Return languages
+   *
+   * Return an array with languages to translate GUI into
+   *
+   * @return array
+   */
+  public function getLanguages() {
+    return $this->languages;
   }
 
   /**
