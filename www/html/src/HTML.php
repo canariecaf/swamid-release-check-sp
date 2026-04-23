@@ -78,7 +78,6 @@ class HTML {
                 height="20"
                 alt="' . $localize->getLang() . '"> ' . _('Language') . '</a>
             <div class="dropdown-menu">' ."\n";
-    $queryString = $_SERVER['QUERY_STRING'] == '' ? '?lang=' : '?' . $_SERVER['QUERY_STRING'] . '&lang=';
     if ($_SERVER['QUERY_STRING'] == '') {
       $queryString = '?lang=';
     } else {

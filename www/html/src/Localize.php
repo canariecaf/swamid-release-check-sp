@@ -26,7 +26,7 @@ class Localize {
     if(session_status() !== PHP_SESSION_ACTIVE) {
       session_start();
     }
-    $this->selectTranslation(); 
+    $this->selectTranslation();
   }
 
   public function getLang()

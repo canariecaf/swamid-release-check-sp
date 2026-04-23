@@ -27,9 +27,7 @@ _('Have Assurance Profile. Missing some Assurance information.');
 _('Have Assurance Profile. Sends recommended Assurance information.');
 
 #IdPCheckSWAMID.php:233: status_OK
-_('Identity Provider is approved for at least one SWAMID Identity Assurance Profiles.');
 #IdPCheckSWAMID.php:237: status_OK
-_('Identity Provider is approved for at least one SWAMID Identity Assurance Profiles.');
 #IdPCheckSWAMID.php:241: status_OK
 _('Identity Provider is approved for at least one SWAMID Identity Assurance Profiles.');
 #IdPCheckSWAMID.php:245: status_OK
