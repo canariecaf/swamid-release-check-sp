@@ -73,7 +73,7 @@ class Configuration {
                 <li>' . _('REFEDS Data Protection Code of Conduct ver 2.0 Entity Category') . '.</li>
               </ul></li>
               <li>' . _('The Authentication tab checks if an Identity Provider is correctly configured for handling request for different AuthnContextClassRef requests.') . '</li>
-              <li>' . _('The Entity category tab does an exetensive testing of that an Identity Provider follows Best Practice for attribute release via entity categories.') . '</li>
+              <li>' . _('The Entity category tab does an extensive testing of that an Identity Provider follows Best Practice for attribute release via entity categories.') . '</li>
               <li>' . _('The ESI tab verifies if the Identity Provider release the right attributes for the European Digital Student Service Infrastructure.') . '</li>
             </ul>
           </p>',

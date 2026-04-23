@@ -75,7 +75,7 @@ $federation = array(
   #              <li>REFEDS Research and Scholarship Entity Category, and</li>
   #              <li>REFEDS Data Protection Code of Conduct ver 2.0 Entity Category.</li>
   #            </ul></li>
-  #            <li>The Entity category tab does an exetensive testing of that an Identity Provider follows
+  #            <li>The Entity category tab does an extensive testing of that an Identity Provider follows
   #              Best Practice for attribute release via entity categories.</li>
   #            <li>The MFA tab checks if an Identity Provider is correctly configured for handling request
   #              for multi-factor login.</li>

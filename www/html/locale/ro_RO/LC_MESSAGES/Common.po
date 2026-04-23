@@ -530,7 +530,7 @@ msgstr ""
 
 #: www/html/src/Configuration.php:76
 msgid ""
-"The Entity category tab does an exetensive testing of that an Identity "
+"The Entity category tab does an extensive testing of that an Identity "
 "Provider follows Best Practice for attribute release via entity categories."
 msgstr ""
 "Fila Categorie entitate efectuează teste extinse pentru a verifica că un "
