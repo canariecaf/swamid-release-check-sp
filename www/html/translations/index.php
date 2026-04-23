@@ -3,6 +3,8 @@
 $pot_dir = '../locale/';
 require_once '../vendor/autoload.php';
 
+const LC_COMMON = '/LC_MESSAGES/Common.po';
+
 $config = new \releasecheck\Configuration();
 $loader = new \Gettext\Loader\PoLoader();
 
@@ -19,17 +21,12 @@ printf('    <div class="row">
   "\n"
 );
 if (isset($_GET['action']) && isset($_GET['file'])) {
-  switch($_GET['action']) {
-    case 'showInfo':
-      if (isset($_GET['type'])) {
-        showInfo($_GET['type'], $_GET['file']);
-      }
-      break;
-    case 'showCompare':
-      if (isset($_GET['pot'])) {
-        showCompare($_GET['pot'], $_GET['file']);
-      }
-      break;
+  if ($_GET['action'] == 'showInfo' && isset($_GET['type'])) {
+    showInfo($_GET['type'], $_GET['file']);
+  } elseif ($_GET['action'] == 'showCompare' && isset($_GET['pot'])) {
+    showCompare($_GET['pot'], $_GET['file']);
+  } else {
+    showOverview();
   }
 } else {
   showOverview();
@@ -51,7 +48,7 @@ function showOverview()
   if ($pot_dh = opendir($pot_dir) ) {
     while (false !== ($pot_file = readdir($pot_dh))) {
       $fullPath = $pot_dir . '/' . $pot_file;
-      if (is_file($fullPath) and substr($pot_file,-4) == '.pot') {
+      if (is_file($fullPath) && substr($pot_file,-4) == '.pot') {
         $translations = $loader->loadFile($fullPath);
         printf('          <tr><th><a href="?action=showInfo&type=pot&file=%s">%s</a></th><td>%d</td><td>%s</td></tr>%s',
           $pot_file,
@@ -78,8 +75,8 @@ function showOverview()
   if ($pot_dh = opendir($pot_dir) ) {
     while (false !== ($lang_dir = readdir($pot_dh))) {
       $dirPath = $pot_dir . '/' . $lang_dir;
-      $fullPath = $pot_dir . '/' . $lang_dir . '/LC_MESSAGES/Common.po';
-      if (is_dir($dirPath) and is_file($fullPath)) {
+      $fullPath = $pot_dir . '/' . $lang_dir . LC_COMMON;
+      if (is_dir($dirPath) && is_file($fullPath)) {
         $translations = $loader->loadFile($fullPath);
         $translated = 0;
         foreach ($translations->getTranslations() as $msg) {
@@ -105,11 +102,11 @@ function showInfo($type, $file)
   global $loader, $pot_dir;
 
   $fullPath = $pot_dir . '/' . basename($file);
-  $fullPath .= $type == 'pot' ? '' : '/LC_MESSAGES/Common.po';
+  $fullPath .= $type == 'pot' ? '' : LC_COMMON;
 
   printf('        <h3>Info about file :</h3>
         <table class="table table-striped table-bordered">
-          <tr><th>File</th><td>%s</td></tr>%s' , $file, "\n");
+          <tr><th>File</th><td>%s</td></tr>%s' , htmlspecialchars($file), "\n");
 
   if (is_file($fullPath)) {
     $translations = $loader->loadFile($fullPath);
@@ -141,7 +138,7 @@ function showInfo($type, $file)
       if ($pot_dh = opendir($pot_dir) ) {
         while (false !== ($pot_file = readdir($pot_dh))) {
           $fullPath = $pot_dir . '/' . $pot_file;
-          if (is_file($fullPath) and substr($pot_file,-4) == '.pot') {
+          if (is_file($fullPath) && substr($pot_file,-4) == '.pot') {
             printf('<a href="?action=showCompare&pot=%s&file=%s"><button type="button" class="btn btn-primary">%s</button></a> ',
               $pot_file,
               htmlspecialchars($file),
@@ -169,13 +166,13 @@ function showCompare($pot, $file)
 {
   global $loader, $pot_dir;
 
-  $poPath = $pot_dir . '/' . basename($file) . '/LC_MESSAGES/Common.po';
+  $poPath = $pot_dir . '/' . basename($file) . LC_COMMON;
   $potPath = $pot_dir . '/' . basename($pot);
 
   printf('        <h3>Missing translations in %s compared to %s:</h3>
         <ul>%s',
-    basename($file),
-    basename($pot),
+    htmlentities(basename($file)),
+    htmlentities(basename($pot)),
     "\n");
 
   if (is_file($poPath) && is_file($potPath)) {
@@ -186,7 +183,7 @@ function showCompare($pot, $file)
     $notTranslated = 0;
     $missing = 0;
     foreach ($potIds->getTranslations() as $key => $msg) {
-      if ((isset($poTranslations[$key]))) {
+      if (isset($poTranslations[$key])) {
         if ($poTranslations[$key]->isTranslated()) {
           $translated ++;
         } else {
@@ -227,7 +224,7 @@ function download($type, $file)
   global $pot_dir;
 
   $fullPath = $pot_dir . '/' . basename($file);
-  $fullPath .= $type == 'pot' ? '' : '/LC_MESSAGES/Common.po';
+  $fullPath .= $type == 'pot' ? '' : LC_COMMON;
   if (is_file($fullPath)) {
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
@@ -242,13 +239,13 @@ function download($type, $file)
 }
 
 function convertDateTime($dateTime) {
-  $UTCh = substr($dateTime,17,2);
-  $UTCm = substr($dateTime,19,2);
+  $utch = substr($dateTime,17,2);
+  $utcm = substr($dateTime,19,2);
   return date(
     "Y-m-d H:i \U\T\C",
     mktime(
-      substr($dateTime,11,2) - $UTCh,
-      substr($dateTime,14,2) - $UTCm,
+      substr($dateTime,11,2) - $utch,
+      substr($dateTime,14,2) - $utcm,
       0,
       substr($dateTime,5,2),
       substr($dateTime,8,2),

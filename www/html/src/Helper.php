@@ -16,8 +16,8 @@ class Helper {
     $this->config = $config;
     $this->replacements = array (
       "FED_NAME" => ($this->config->getFederation()["displayName"] ?? _("IdP home Federation")),
-      "EC_RANDS"      => "http://refeds.org/category/research-and-scholarship",
-      "EC_COCO1"      => "http://www.geant.net/uri/dataprotection-code-of-conduct/v1",
+      "EC_RANDS"      => "http://refeds.org/category/research-and-scholarship",         # NOSONAR Should be http://
+      "EC_COCO1"      => "http://www.geant.net/uri/dataprotection-code-of-conduct/v1",  # NOSONAR Should be http://
       "EC_COCO2"      => "https://refeds.org/category/code-of-conduct/v2",
       "EC_ANON"       => "https://refeds.org/category/anonymous",
       "EC_PERS"       => "https://refeds.org/category/personalized",
