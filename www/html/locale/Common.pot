@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Release check 1\n"
 "Report-Msgid-Bugs-To: bjorn@sunet.se\n"
-"POT-Creation-Date: 2026-04-17 16:37+0200\n"
+"POT-Creation-Date: 2026-04-23 10:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,7 +228,7 @@ msgstr ""
 #: www/html/index.php:279 www/html/index.php:332 www/html/result/index.php:279
 #: www/html/result/index.php:332
 #, php-format
-msgid "%s Best Practice Attribute Release check"
+msgid "%s Attribute Release check"
 msgstr ""
 
 #: www/html/index.php:283 www/html/result/index.php:283
