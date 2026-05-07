@@ -28,22 +28,10 @@ if (isset($_SERVER['Shib-Identity-Provider']) ) {
 $config = new \releasecheck\Configuration();
 $federation = $config->getFederation();
 
-# CAF Federation Based
-$isCAF = (
-    isset($federation['name']) &&
-    strtolower($federation['name']) === 'caf'
-);
-
 $idpCheck = $config->getExtendedClass('IdPCheck', 'mfa');
 
 $testSuite = $config->getExtendedClass('TestSuite');
-if ($isCAF) {
-    $html = new \releasecheck\HTMLCAF();
-} else {
-    // Existing behavior for SWAMID
-    $html = $config->getExtendedClass('HTML');
-}
-$isCAF = method_exists($html, 'isCAF') && $html->isCAF();
+$html = $config->getExtendedClass('HTML');
 $display = $config->getExtendedClass('Display');
 
 # Default values
@@ -81,23 +69,18 @@ if (isset($_GET['tab'])) {
       $entityCategorySelected = HTML_TRUE;
       $entityCategoryShow = HTML_SHOW;
       $tab = 'entityCategory';
-      break;
+      break;    
     case 'esi' :
-      if ($isCAF) {
-      // CAF should never land on ESI
-      $attributesActive = HTML_ACTIVE;
-      $attributesSelected = HTML_TRUE;
-      $attributesShow = HTML_SHOW;
-      $tab = 'attributes';
+  if (! $html->isTabAllowed('esi')) {
+      $tab = $html->defaultTab();
       break;
     }
-
       $esiActive = HTML_ACTIVE;
       $esiSelected = HTML_TRUE;
       $esiShow = HTML_SHOW;
       $tab = 'esi';
       break;
-      default:
+    default:
       $attributesActive = HTML_ACTIVE;
       $attributesSelected = HTML_TRUE;
       $attributesShow = HTML_SHOW;
@@ -127,51 +110,31 @@ printf('    <div class="row">
               href="#entityCategory" role="tab" aria-controls="entityCategory"
               aria-selected="%s">%s</a>
           </li>',
-  $attributesActive, $attributesSelected, _('Attributes'),
-  $accActive,        $accSelected,        _('Authentication'),
-  $entityCategoryActive, $entityCategorySelected, _('Entity category')
-);
-
-//  CAF-only: ESI tab
-if (! $isCAF) {
-  printf('
-          <li class="nav-item">
-            <a class="nav-link%s" id="esi-tab" data-toggle="tab"
-              href="#esi" role="tab" aria-controls="esi"
-              aria-selected="%s">%s</a>
-          </li>',
-    $esiActive,
-    $esiSelected,
-    _('ESI')
+    $attributesActive, $attributesSelected, _('Attributes'),
+    $accActive, $accSelected, _('Authentication'),
+    $entityCategoryActive,$entityCategorySelected,_('Entity category')
   );
-}
-
-//  Close tabs row
-printf('
-        </ul>
-      </div>
-      <div class="col-4 text-right">%s',
-  "\n"
-);
-
-//  Existing code continues unchanged
+  
+if ($html->shouldRenderTab('esi')) {
+    printf('  <li class="nav-item">
+          <a class="nav-link%s" id="esi-tab" data-toggle="tab"
+             href="#esi" role="tab" aria-controls="esi"
+             aria-selected="%s">%s</a>
+        </li>',
+        $esiActive,$esiSelected,_('ESI'));
+}   
+    printf('  </ul>
+        </div>
+        <div class="col-4 text-right">%s',"\n");
 if ($result) {
-  printf(
-    "        <p><span style=\"white-space: nowrap\"><b>%s</b><br>%s</span></p>\n",
-    $displayName,
-    $idp
-  );
-
-  $admin = $config->getExtendedClass('Admin');
-  $adminButton = $admin->checkAccess()
-    ? '<a href="admin.php">
-         <button type="button" class="btn btn-primary">' . _('Admin') . '</button>
-       </a>'
-    : '';
+        printf ("        <p><span style=\"white-space: nowrwap\"><b>%s</b><br>%s</span></p>\n",$displayName,$idp);
+        $admin = $config->getExtendedClass('Admin');
+        $adminButton = $admin->checkAccess() ? '<a href="admin.php">
+          <button type="button" class="btn btn-primary">' . _('Admin') . '</button>
+        </a>' : '';
 } else {
   $adminButton = '';
 }
-
 printf ('        %s
         <a data-toggle="collapse" href="#selectIdP" aria-expanded="false" aria-controls="selectIdP">
           <button type="button" class="btn btn-outline-primary">' . _('%s IdP') . '</button>
@@ -373,28 +336,28 @@ if ($result) {
   printf (HTML_AGGREGATE_RESULT_FOR, _(HTML_RESULT_FOR), $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
   $display->showResultsECTests($idp, $testrun);
 }
-
-if (! $isCAF) { // ESI disabled for CAF
-printf('      </div><!-- End tab-pane entityCategory -->
-      <div class="tab-pane fade%s%s" id="esi" role="tabpanel" aria-labelledby="esi-tab">
-        <h2>' . _('%s Attribute Release check') . '</h2>
-        <br>
-        <div class="row">
-          <div class="col">
-            <a href="https://esi.%s/%s">
-              <button type="button" class="btn btn-success">' . _('Run tests') . '</button>
-            </a>
-          </div>%s',
-  $esiShow, $esiActive, $federation['displayName'], $config->basename(), $result ? HTML_SHIBBOLETH_LOGIN . $idp : '',
-  "\n");
-if (! $result ) {
-  printf('          <div class="col">
+if ($html->shouldRenderTab('esi')) {
+  printf('    
+        <div class="tab-pane fade%s%s" id="esi" role="tabpanel" aria-labelledby="esi-tab">
+          <h2>' . _('%s Attribute Release check') . '</h2>
+          <br>
+          <div class="row">
+            <div class="col">
+              <a href="https://esi.%s/%s">
+                <button type="button" class="btn btn-success">%s</button>
+              </a>
+            </div>%s',
+      $esiShow, $esiActive, $federation['displayName'], $config->basename(), _('Run tests'), $result ? HTML_SHIBBOLETH_LOGIN . $idp : '',
+      "\n");
+  if (! $result ) {
+    printf('        <div class="col">
             <a href="https://%s/result/?tab=esi">
               <button type="button" class="btn btn-success">' . _('Show results') . '</button>
             </a>
-          </div>%s', $config->basename(), "\n");
-}
-printf('        </div>
+          </div>%s', $config->basename(),"\n");
+  }
+
+  printf('      </div>
         <h3>
           <i id="esi-instructions-icon" class="fas fa-chevron-circle-%s"></i>
           <a data-toggle="collapse" href="#esi-instructions" aria-expanded="%s"
@@ -404,36 +367,34 @@ printf('        </div>
         </h3>
         <div class="collapse%s multi-collapse" id="esi-instructions">
           <p>' . _('European Student Identifier uses the entity category') .
-            ' https://myacademicid.org/entity-categories/esi ' .
+          ' https://myacademicid.org/entity-categories/esi ' .
           _("for release of attributes from the user's identity provider.") . ' ' .
           _('This test verifies that all required attributes are released during login.') . '</p>
         </div><!-- end collapse -->%s',
-  $result ? "right" : "down", $instructionsSelected, $instructionsShow, "\n");
-$collapseIcons[] = "esi-instructions";
-if ($result) {
-  $testrun = $display->getTestruns($idp, 'esi');
-  printf (HTML_AGGREGATE_RESULT_FOR, _(HTML_RESULT_FOR), $displayName,$idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
-  $display->showResultsESI($idp, $testrun);
-}
+      $result ? "right" : "down", $instructionsSelected, $instructionsShow,"\n");
+  $collapseIcons[] = "esi-instructions";
+  if ($result) {
+    $testrun = $display->getTestruns($idp, 'esi');
+    printf(HTML_AGGREGATE_RESULT_FOR, _(HTML_RESULT_FOR), $displayName, $idp, $testrun['time'] == HTML_NO_RUN ? '' : ' (' . $testrun['time'] . ')');
+    $display->showResultsESI($idp, $testrun);
+  }
 
-printf("      </div><!-- End tab-pane esi -->\n");
-?>
+  printf("      </div><!-- End tab-pane esi -->\n");
 }
-<?php
-printf('      <!-- Include the Seamless Access Sign in Button & Discovery Service -->
+  printf('      <!-- Include the Seamless Access Sign in Button & Discovery Service -->
       <script src="//%s/thiss.js"></script>
       <script>
         window.onload = function() {
           // Render the Seamless Access button
           thiss.DiscoveryComponent({
-            loginInitiatorURL: "https://%s/Shibboleth.sso/%s?target=https://%s/result",
+            loginInitiatorURL: \'https://%s/Shibboleth.sso/%s?target=https://%s/result\',
             %s
             %s
-          }).render("#DS-Thiss");
+          }).render(\'#DS-Thiss\');
         };
-      </script>', $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
-  isset($federation['entityID']) ? sprintf("entityID: '%s',", $federation['entityID']) : '',
-  isset($federation['trustProfile']) ? sprintf("trustProfile: '%s',", $federation['trustProfile']) : '');
+      </script>%s', $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
+      isset($federation['entityID']) ? sprintf('entityID: \'%s\',', $federation['entityID']) : '',
+      isset($federation['trustProfile']) ? sprintf('trustProfile: \'%s\',', $federation['trustProfile']) : '',"\n");
 $html->showContentFooter();
 $html->showScripts($collapseIcons);
 
@@ -455,4 +416,4 @@ function createRedirect($post, $result, $idp) {
   header('Location: ' . $redirectURL);
   exit;
 }
-}
+

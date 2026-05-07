@@ -237,4 +237,28 @@ class HTML {
   public function addTableSort($tableId) {
     $this->tableToSort[] = $tableId;
   }
+  
+  public function shouldRenderTab(string $tab): bool
+    {
+        return true;
+    }
+
+    /**
+     * Is the given tab allowed to be selected?
+     * Default: yes.
+     */
+    public function isTabAllowed(string $tab): bool
+    {
+        return true;
+    }
+
+    /**
+     * Default tab fallback.
+     */
+    public function defaultTab(): string
+    {
+        return 'attributes';
+    }
 }
+
+
