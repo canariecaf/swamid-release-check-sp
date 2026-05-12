@@ -69,7 +69,7 @@ if (isset($_GET['tab'])) {
       $entityCategorySelected = HTML_TRUE;
       $entityCategoryShow = HTML_SHOW;
       $tab = 'entityCategory';
-      break;    
+      break;
     case 'esi' :
   if (! $html->isTabAllowed('esi')) {
       $tab = $html->defaultTab();
@@ -80,7 +80,7 @@ if (isset($_GET['tab'])) {
       $esiShow = HTML_SHOW;
       $tab = 'esi';
       break;
-    default:
+      default:
       $attributesActive = HTML_ACTIVE;
       $attributesSelected = HTML_TRUE;
       $attributesShow = HTML_SHOW;
@@ -371,11 +371,11 @@ if ($html->shouldRenderTab('esi')) {
           _("for release of attributes from the user's identity provider.") . ' ' .
           _('This test verifies that all required attributes are released during login.') . '</p>
         </div><!-- end collapse -->%s',
-      $result ? "right" : "down", $instructionsSelected, $instructionsShow,"\n");
+  $result ? "right" : "down", $instructionsSelected, $instructionsShow,"\n");
   $collapseIcons[] = "esi-instructions";
   if ($result) {
     $testrun = $display->getTestruns($idp, 'esi');
-    printf(HTML_AGGREGATE_RESULT_FOR, _(HTML_RESULT_FOR), $displayName, $idp, $testrun['time'] == HTML_NO_RUN ? '' : ' (' . $testrun['time'] . ')');
+    printf (HTML_AGGREGATE_RESULT_FOR, _(HTML_RESULT_FOR), $displayName, $idp, $testrun['time'] == HTML_NO_RUN ? '' : ' ('.$testrun['time'].')');
     $display->showResultsESI($idp, $testrun);
   }
 
@@ -387,14 +387,14 @@ if ($html->shouldRenderTab('esi')) {
         window.onload = function() {
           // Render the Seamless Access button
           thiss.DiscoveryComponent({
-            loginInitiatorURL: \'https://%s/Shibboleth.sso/%s?target=https://%s/result\',
+            loginInitiatorURL: "https://%s/Shibboleth.sso/%s?target=https://%s/result",
             %s
             %s
-          }).render(\'#DS-Thiss\');
+          }).render("#DS-Thiss");
         };
-      </script>%s', $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
-      isset($federation['entityID']) ? sprintf('entityID: \'%s\',', $federation['entityID']) : '',
-      isset($federation['trustProfile']) ? sprintf('trustProfile: \'%s\',', $federation['trustProfile']) : '',"\n");
+      </script>', $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
+      isset($federation['entityID']) ? sprintf("entityID: \'%s\',", $federation['entityID']) : '',
+      isset($federation['trustProfile']) ? sprintf("trustProfile: \'%s\',", $federation['trustProfile']) : '',"\n");
 $html->showContentFooter();
 $html->showScripts($collapseIcons);
 
