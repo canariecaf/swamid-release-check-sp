@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Release check 1\n"
 "Report-Msgid-Bugs-To: bjorn@sunet.se\n"
-"POT-Creation-Date: 2026-04-23 13:02+0200\n"
+"POT-Creation-Date: 2026-05-29 15:50-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,194 +75,169 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: www/html/index.php:98 www/html/result/index.php:98
-#, php-format
-msgid "Attributes"
-msgstr ""
-
-#: www/html/index.php:102 www/html/result/index.php:102
-#, php-format
-msgid "Authentication"
+#: www/html/index.php:99 www/html/result/index.php:99
+msgid "Admin"
 msgstr ""
 
 #: www/html/index.php:107 www/html/result/index.php:107
 #, php-format
-msgid "Entity category"
-msgstr ""
-
-#: www/html/index.php:111 www/html/result/index.php:111
-#, php-format
-msgid "ESI"
-msgstr ""
-
-#: www/html/index.php:124 www/html/result/index.php:124
-msgid "Admin"
-msgstr ""
-
-#: www/html/index.php:131 www/html/result/index.php:131
-#, php-format
 msgid "%s IdP"
 msgstr ""
 
-#: www/html/index.php:139 www/html/result/index.php:139
-#, php-format
-msgid "Select IdP"
+#: www/html/index.php:112 www/html/result/index.php:112
+msgid "Change"
 msgstr ""
 
-#: www/html/index.php:151 www/html/result/index.php:151
+#: www/html/index.php:112 www/html/result/index.php:112
+msgid "Select"
+msgstr ""
+
+#: www/html/index.php:120 www/html/result/index.php:120
 #, php-format
 msgid "Released attributes from IdP"
 msgstr ""
 
-#: www/html/index.php:156 www/html/result/index.php:156
+#: www/html/index.php:125 www/html/result/index.php:125
 #, php-format
 msgid "%s and show attributes"
 msgstr ""
 
-#: www/html/index.php:162 www/html/index.php:187 www/html/index.php:309
-#: www/html/index.php:354 www/html/result/index.php:162
-#: www/html/result/index.php:187 www/html/result/index.php:309
-#: www/html/result/index.php:354
+#: www/html/index.php:131 www/html/index.php:156 www/html/index.php:278
+#: www/html/index.php:323 www/html/result/index.php:131
+#: www/html/result/index.php:156 www/html/result/index.php:278
+#: www/html/result/index.php:323
 #, php-format
 msgid "Instructions"
 msgstr ""
 
-#: www/html/index.php:167 www/html/result/index.php:167
-msgid "Change"
-msgstr ""
-
-#: www/html/index.php:167 www/html/result/index.php:167
-msgid "Select"
-msgstr ""
-
-#: www/html/index.php:168 www/html/result/index.php:168
-msgid "Refresh"
-msgstr ""
-
-#: www/html/index.php:168 www/html/result/index.php:168
+#: www/html/index.php:137 www/html/result/index.php:137
 msgid "Login"
 msgstr ""
 
-#: www/html/index.php:191 www/html/result/index.php:191
+#: www/html/index.php:137 www/html/result/index.php:137
+msgid "Refresh"
+msgstr ""
+
+#: www/html/index.php:160 www/html/result/index.php:160
 #, php-format
 msgid "The Authentication test is a two step process."
 msgstr ""
 
-#: www/html/index.php:192 www/html/result/index.php:192
+#: www/html/index.php:161 www/html/result/index.php:161
 #, php-format
 msgid ""
 "The first step is to test an AuthnContextClassRef and the second step is to "
 "verify that forceAuthn works as expected for that AuthnContextClassRef."
 msgstr ""
 
-#: www/html/index.php:193 www/html/result/index.php:193
+#: www/html/index.php:162 www/html/result/index.php:162
 #, php-format
 msgid ""
 "The results from this tests are NOT saved exept for tests done with REFEDS "
 "MFA."
 msgstr ""
 
-#: www/html/index.php:201 www/html/result/index.php:201
+#: www/html/index.php:170 www/html/result/index.php:170
 #, php-format
 msgid "Step 1"
 msgstr ""
 
-#: www/html/index.php:202 www/html/result/index.php:202
+#: www/html/index.php:171 www/html/result/index.php:171
 #, php-format
 msgid "Choose AuthnContextClassRef to test"
 msgstr ""
 
-#: www/html/index.php:205 www/html/result/index.php:205
+#: www/html/index.php:174 www/html/result/index.php:174
 #, php-format
 msgid "No AuthnContextClassRef"
 msgstr ""
 
-#: www/html/index.php:215 www/html/result/index.php:215
+#: www/html/index.php:184 www/html/result/index.php:184
 #, php-format
 msgid "Test AuthnContextClassRef"
 msgstr ""
 
-#: www/html/index.php:223 www/html/result/index.php:223
+#: www/html/index.php:192 www/html/result/index.php:192
 #, php-format
 msgid "Step 2"
 msgstr ""
 
-#: www/html/index.php:227 www/html/result/index.php:227
+#: www/html/index.php:196 www/html/result/index.php:196
 #, php-format
 msgid ""
 "Rerun \"Test AuthnContextClassRef\" to get a fresh Authentication-Instant to "
 "be able to run \"Test forceAuthN\" again."
 msgstr ""
 
-#: www/html/index.php:229 www/html/result/index.php:229
+#: www/html/index.php:198 www/html/result/index.php:198
 #, php-format
 msgid ""
 "Test that forceAuthn return a newer Authentication-Instant than in step 1. "
 "The same AuthnContextClassRef is used as in step 1."
 msgstr ""
 
-#: www/html/index.php:230 www/html/result/index.php:230
+#: www/html/index.php:199 www/html/result/index.php:199
 #, php-format
 msgid "Test forceAuthN"
 msgstr ""
 
-#: www/html/index.php:241 www/html/index.php:263 www/html/result/index.php:241
-#: www/html/result/index.php:263
+#: www/html/index.php:210 www/html/index.php:232 www/html/result/index.php:210
+#: www/html/result/index.php:232
 #, php-format
 msgid "Received in Step 1"
 msgstr ""
 
-#: www/html/index.php:248 www/html/result/index.php:248
+#: www/html/index.php:217 www/html/result/index.php:217
 #, php-format
 msgid "Received in Step 2"
 msgstr ""
 
-#: www/html/index.php:258 www/html/result/index.php:258
+#: www/html/index.php:227 www/html/result/index.php:227
 msgid "Refresh/Reload is not allowed while testing forceAuthn."
 msgstr ""
 
-#: www/html/index.php:259 www/html/result/index.php:259
+#: www/html/index.php:228 www/html/result/index.php:228
 msgid "Please rerun \"Test AuthnContextClassRef\""
 msgstr ""
 
-#: www/html/index.php:279 www/html/index.php:332 www/html/result/index.php:279
-#: www/html/result/index.php:332
+#: www/html/index.php:248 www/html/index.php:301 www/html/result/index.php:248
+#: www/html/result/index.php:301
 #, php-format
 msgid "%s Attribute Release check"
 msgstr ""
 
-#: www/html/index.php:283 www/html/result/index.php:283
+#: www/html/index.php:252 www/html/result/index.php:252
 #, php-format
 msgid "Run all tests automatically"
 msgstr ""
 
-#: www/html/index.php:286 www/html/result/index.php:286
+#: www/html/index.php:255 www/html/result/index.php:255
 #, php-format
 msgid "Run tests manually"
 msgstr ""
 
-#: www/html/index.php:302 www/html/index.php:345 www/html/result/index.php:302
-#: www/html/result/index.php:345
+#: www/html/index.php:271 www/html/index.php:314 www/html/result/index.php:271
+#: www/html/result/index.php:314
 #, php-format
 msgid "Show results"
 msgstr ""
 
-#: www/html/index.php:337 www/html/result/index.php:337
+#: www/html/index.php:306 www/html/result/index.php:306
 #, php-format
 msgid "Run tests"
 msgstr ""
 
-#: www/html/index.php:358 www/html/result/index.php:358
+#: www/html/index.php:327 www/html/result/index.php:327
 #, php-format
 msgid "European Student Identifier uses the entity category"
 msgstr ""
 
-#: www/html/index.php:360 www/html/result/index.php:360
+#: www/html/index.php:329 www/html/result/index.php:329
 #, php-format
 msgid "for release of attributes from the user's identity provider."
 msgstr ""
 
-#: www/html/index.php:361 www/html/result/index.php:361
+#: www/html/index.php:330 www/html/result/index.php:330
 #, php-format
 msgid ""
 "This test verifies that all required attributes are released during login."
@@ -851,8 +826,8 @@ msgstr ""
 
 #: www/html/src/DatabaseTexts.php:149
 msgid ""
-"schacPersonalUniqueCode in wrong case. Not "
-"urn:schac:personalUniqueCode:int:esi. Might create problem in some SP's"
+"schacPersonalUniqueCode in wrong case. Not urn:schac:personalUniqueCode:int:"
+"esi. Might create problem in some SP's"
 msgstr ""
 
 #: www/html/src/DatabaseTexts.php:151
@@ -861,14 +836,14 @@ msgstr ""
 
 #: www/html/src/DatabaseTexts.php:153
 msgid ""
-"schacPersonalUniqueCode should start with "
-"urn:schac:personalUniqueCode:int:esi:"
+"schacPersonalUniqueCode should start with urn:schac:personalUniqueCode:int:"
+"esi:"
 msgstr ""
 
 #: www/html/src/DatabaseTexts.php:155
 msgid ""
-"schacPersonalUniqueCode not starting with "
-"urn:schac:personalUniqueCode:int:esi:"
+"schacPersonalUniqueCode not starting with urn:schac:personalUniqueCode:int:"
+"esi:"
 msgstr ""
 
 #: www/html/src/DatabaseTexts.php:157
@@ -1075,15 +1050,15 @@ msgid "Identity Provider sessions attributes"
 msgstr ""
 
 #: www/html/src/Display.php:147 www/html/src/Display.php:185
-#: www/html/src/Display.php:216 www/html/src/IdPCheck.php:175
-#, php-format
-msgid "Test"
-msgstr ""
-
-#: www/html/src/Display.php:147 www/html/src/Display.php:185
 #: www/html/src/Display.php:216
 #, php-format
 msgid "Result"
+msgstr ""
+
+#: www/html/src/Display.php:147 www/html/src/Display.php:185
+#: www/html/src/Display.php:216 www/html/src/IdPCheck.php:175
+#, php-format
+msgid "Test"
 msgstr ""
 
 #: www/html/src/Display.php:156
@@ -1100,11 +1075,11 @@ msgid "European Student Identifier (any account)"
 msgstr ""
 
 #: www/html/src/Display.php:248
-msgid "Run NEW test"
+msgid "Rerun test"
 msgstr ""
 
 #: www/html/src/Display.php:248
-msgid "Rerun test"
+msgid "Run NEW test"
 msgstr ""
 
 #: www/html/src/Display.php:299
@@ -1136,25 +1111,50 @@ msgstr ""
 msgid "Other results"
 msgstr ""
 
-#: www/html/src/Helper.php:18
-msgid "IdP home Federation"
-msgstr ""
-
-#: www/html/src/HTML.php:42
+#: www/html/src/HTML.php:45
 msgid "Release check for"
 msgstr ""
 
-#: www/html/src/HTML.php:79
+#: www/html/src/HTML.php:82
 msgid "Language"
 msgstr ""
 
-#: www/html/src/HTML.php:104
+#: www/html/src/HTML.php:107
 #, php-format
 msgid "About %s"
 msgstr ""
 
-#: www/html/src/HTML.php:117
+#: www/html/src/HTML.php:120
 msgid "Contact us"
+msgstr ""
+
+#: www/html/src/HTML.php:144
+#, php-format
+msgid "Attributes"
+msgstr ""
+
+#: www/html/src/HTML.php:148
+#, php-format
+msgid "Authentication"
+msgstr ""
+
+#: www/html/src/HTML.php:153
+#, php-format
+msgid "Entity category"
+msgstr ""
+
+#: www/html/src/HTML.php:157
+#, php-format
+msgid "ESI"
+msgstr ""
+
+#: www/html/src/HTML.php:179
+#, php-format
+msgid "Select IdP"
+msgstr ""
+
+#: www/html/src/Helper.php:18
+msgid "IdP home Federation"
 msgstr ""
 
 #: www/html/src/IdPCheck.php:174

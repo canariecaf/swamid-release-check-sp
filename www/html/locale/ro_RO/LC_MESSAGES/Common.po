@@ -3,14 +3,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Release check 1\n"
 "Report-Msgid-Bugs-To: bjorn@sunet.se\n"
-"POT-Creation-Date: 2026-04-15 10:45+0200\n"
+"POT-Creation-Date: 2026-05-29 15:50-0400\n"
 "PO-Revision-Date: 2026-04-18 12:00+0300\n"
 "Last-Translator: Traducător <pvv@renam.md>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100>0 && "
+"n%100<20)) ? 1 : 2);\n"
 
 #: www/html/error.php:12
 #, php-format
@@ -75,80 +76,55 @@ msgstr "Cheie"
 msgid "Value"
 msgstr "Valoare"
 
-#: www/html/index.php:98 www/html/result/index.php:98
-#, php-format
-msgid "Attributes"
-msgstr "Atribute"
-
-#: www/html/index.php:102 www/html/result/index.php:102
-#, php-format
-msgid "Authentication"
-msgstr "Autentificare"
-
-#: www/html/index.php:107 www/html/result/index.php:107
-#, php-format
-msgid "Entity category"
-msgstr "Categorie entitate"
-
-#: www/html/index.php:111 www/html/result/index.php:111
-#, php-format
-msgid "ESI"
-msgstr "ESI"
-
-#: www/html/index.php:124 www/html/result/index.php:124
+#: www/html/index.php:99 www/html/result/index.php:99
 msgid "Admin"
 msgstr "Admin"
 
-#: www/html/index.php:131 www/html/result/index.php:131
+#: www/html/index.php:107 www/html/result/index.php:107
 #, php-format
 msgid "%s IdP"
 msgstr "%s IdP"
 
-#: www/html/index.php:139 www/html/result/index.php:139
-#, php-format
-msgid "Select IdP"
-msgstr "Selectați IdP"
+#: www/html/index.php:112 www/html/result/index.php:112
+msgid "Change"
+msgstr "Schimbați"
 
-#: www/html/index.php:151 www/html/result/index.php:151
+#: www/html/index.php:112 www/html/result/index.php:112
+msgid "Select"
+msgstr "Selectați"
+
+#: www/html/index.php:120 www/html/result/index.php:120
 #, php-format
 msgid "Released attributes from IdP"
 msgstr "Atribute eliberate de IdP"
 
-#: www/html/index.php:156 www/html/result/index.php:156
+#: www/html/index.php:125 www/html/result/index.php:125
 #, php-format
 msgid "%s and show attributes"
 msgstr "%s și afișați atributele"
 
-#: www/html/index.php:162 www/html/index.php:187 www/html/index.php:309
-#: www/html/index.php:354 www/html/result/index.php:162
-#: www/html/result/index.php:187 www/html/result/index.php:309
-#: www/html/result/index.php:354
+#: www/html/index.php:131 www/html/index.php:156 www/html/index.php:278
+#: www/html/index.php:323 www/html/result/index.php:131
+#: www/html/result/index.php:156 www/html/result/index.php:278
+#: www/html/result/index.php:323
 #, php-format
 msgid "Instructions"
 msgstr "Instrucțiuni"
 
-#: www/html/index.php:167 www/html/result/index.php:167
-msgid "Change"
-msgstr "Schimbați"
-
-#: www/html/index.php:167 www/html/result/index.php:167
-msgid "Select"
-msgstr "Selectați"
-
-#: www/html/index.php:168 www/html/result/index.php:168
-msgid "Refresh"
-msgstr "Reîncărcați"
-
-#: www/html/index.php:168 www/html/result/index.php:168
+#: www/html/index.php:137 www/html/result/index.php:137
 msgid "Login"
 msgstr "Autentificare"
 
-#: www/html/index.php:191 www/html/result/index.php:191
+#: www/html/index.php:137 www/html/result/index.php:137
+msgid "Refresh"
+msgstr "Reîncărcați"
+
+#: www/html/index.php:160 www/html/result/index.php:160
 #, php-format
 msgid "The Authentication test is a two step process."
 msgstr "Testul de autentificare este un proces în două etape."
 
-#: www/html/index.php:192 www/html/result/index.php:192
+#: www/html/index.php:161 www/html/result/index.php:161
 #, php-format
 msgid ""
 "The first step is to test an AuthnContextClassRef and the second step is to "
@@ -158,51 +134,51 @@ msgstr ""
 "verifică dacă forceAuthn funcționează conform așteptărilor pentru acel "
 "AuthnContextClassRef."
 
-#: www/html/index.php:193 www/html/result/index.php:193
+#: www/html/index.php:162 www/html/result/index.php:162
 #, php-format
 msgid ""
 "The results from this tests are NOT saved exept for tests done with REFEDS "
 "MFA."
 msgstr ""
-"Rezultatele acestor teste NU sunt salvate, cu excepția testelor efectuate cu"
-" REFEDS MFA."
+"Rezultatele acestor teste NU sunt salvate, cu excepția testelor efectuate cu "
+"REFEDS MFA."
 
-#: www/html/index.php:201 www/html/result/index.php:201
+#: www/html/index.php:170 www/html/result/index.php:170
 #, php-format
 msgid "Step 1"
 msgstr "Etapa 1"
 
-#: www/html/index.php:202 www/html/result/index.php:202
+#: www/html/index.php:171 www/html/result/index.php:171
 #, php-format
 msgid "Choose AuthnContextClassRef to test"
 msgstr "Alegeți AuthnContextClassRef pentru testare"
 
-#: www/html/index.php:205 www/html/result/index.php:205
+#: www/html/index.php:174 www/html/result/index.php:174
 #, php-format
 msgid "No AuthnContextClassRef"
 msgstr "Niciun AuthnContextClassRef"
 
-#: www/html/index.php:215 www/html/result/index.php:215
+#: www/html/index.php:184 www/html/result/index.php:184
 #, php-format
 msgid "Test AuthnContextClassRef"
 msgstr "Testați AuthnContextClassRef"
 
-#: www/html/index.php:223 www/html/result/index.php:223
+#: www/html/index.php:192 www/html/result/index.php:192
 #, php-format
 msgid "Step 2"
 msgstr "Etapa 2"
 
-#: www/html/index.php:227 www/html/result/index.php:227
+#: www/html/index.php:196 www/html/result/index.php:196
 #, php-format
 msgid ""
-"Rerun \"Test AuthnContextClassRef\" to get a fresh Authentication-Instant to"
-" be able to run \"Test forceAuthN\" again."
+"Rerun \"Test AuthnContextClassRef\" to get a fresh Authentication-Instant to "
+"be able to run \"Test forceAuthN\" again."
 msgstr ""
 "Rulați din nou \"Test AuthnContextClassRef\" pentru a obține un "
 "Authentication-Instant actualizat și a putea rula din nou \"Test "
 "forceAuthN\"."
 
-#: www/html/index.php:229 www/html/result/index.php:229
+#: www/html/index.php:198 www/html/result/index.php:198
 #, php-format
 msgid ""
 "Test that forceAuthn return a newer Authentication-Instant than in step 1. "
@@ -211,70 +187,70 @@ msgstr ""
 "Verificați că forceAuthn returnează un Authentication-Instant mai recent "
 "decât în etapa 1. Se utilizează același AuthnContextClassRef ca în etapa 1."
 
-#: www/html/index.php:230 www/html/result/index.php:230
+#: www/html/index.php:199 www/html/result/index.php:199
 #, php-format
 msgid "Test forceAuthN"
 msgstr "Testați forceAuthN"
 
-#: www/html/index.php:241 www/html/index.php:263 www/html/result/index.php:241
-#: www/html/result/index.php:263
+#: www/html/index.php:210 www/html/index.php:232 www/html/result/index.php:210
+#: www/html/result/index.php:232
 #, php-format
 msgid "Received in Step 1"
 msgstr "Primit în Etapa 1"
 
-#: www/html/index.php:248 www/html/result/index.php:248
+#: www/html/index.php:217 www/html/result/index.php:217
 #, php-format
 msgid "Received in Step 2"
 msgstr "Primit în Etapa 2"
 
-#: www/html/index.php:258 www/html/result/index.php:258
+#: www/html/index.php:227 www/html/result/index.php:227
 msgid "Refresh/Reload is not allowed while testing forceAuthn."
 msgstr "Reîncărcarea paginii nu este permisă în timpul testării forceAuthn."
 
-#: www/html/index.php:259 www/html/result/index.php:259
+#: www/html/index.php:228 www/html/result/index.php:228
 msgid "Please rerun \"Test AuthnContextClassRef\""
 msgstr "Rulați din nou \"Test AuthnContextClassRef\""
 
-#: www/html/index.php:279 www/html/index.php:332 www/html/result/index.php:279
-#: www/html/result/index.php:332
+#: www/html/index.php:248 www/html/index.php:301 www/html/result/index.php:248
+#: www/html/result/index.php:301
 #, php-format
 msgid "%s Attribute Release check"
 msgstr "%s Verificare eliberare atribute conform bunelor practici"
 
-#: www/html/index.php:283 www/html/result/index.php:283
+#: www/html/index.php:252 www/html/result/index.php:252
 #, php-format
 msgid "Run all tests automatically"
 msgstr "Rulați toate testele automat"
 
-#: www/html/index.php:286 www/html/result/index.php:286
+#: www/html/index.php:255 www/html/result/index.php:255
 #, php-format
 msgid "Run tests manually"
 msgstr "Rulați testele manual"
 
-#: www/html/index.php:302 www/html/index.php:345 www/html/result/index.php:302
-#: www/html/result/index.php:345
+#: www/html/index.php:271 www/html/index.php:314 www/html/result/index.php:271
+#: www/html/result/index.php:314
 #, php-format
 msgid "Show results"
 msgstr "Afișați rezultatele"
 
-#: www/html/index.php:337 www/html/result/index.php:337
+#: www/html/index.php:306 www/html/result/index.php:306
 #, php-format
 msgid "Run tests"
 msgstr "Rulați testele"
 
-#: www/html/index.php:358 www/html/result/index.php:358
+#: www/html/index.php:327 www/html/result/index.php:327
 #, php-format
 msgid "European Student Identifier uses the entity category"
 msgstr "European Student Identifier utilizează categoria de entitate"
 
-#: www/html/index.php:360 www/html/result/index.php:360
+#: www/html/index.php:329 www/html/result/index.php:329
 #, php-format
 msgid "for release of attributes from the user's identity provider."
 msgstr ""
 "pentru eliberarea atributelor de la furnizorul de identitate al "
 "utilizatorului."
 
-#: www/html/index.php:361 www/html/result/index.php:361
+#: www/html/index.php:330 www/html/result/index.php:330
 #, php-format
 msgid ""
 "This test verifies that all required attributes are released during login."
@@ -554,8 +530,8 @@ msgid ""
 "attributes that they require."
 msgstr ""
 "Pentru ca %s să funcționeze cât mai eficient pentru studenți, angajați, "
-"furnizori de servicii și furnizori de identitate, %s recomandă ca furnizorii"
-" de servicii să utilizeze categorii de entitate pentru a obține atributele "
+"furnizori de servicii și furnizori de identitate, %s recomandă ca furnizorii "
+"de servicii să utilizeze categorii de entitate pentru a obține atributele "
 "necesare."
 
 #: www/html/src/Configuration.php:81
@@ -588,8 +564,8 @@ msgid ""
 "either SHOULD or SHOULD NOT release in accordance REFEDS/%s Code of Conduct."
 msgstr ""
 "Testele multiple Code of Conduct necesită atribute diferite pe care IdP-ul "
-"AR TREBUI sau NU AR TREBUI să le elibereze în conformitate cu REFEDS/%s Code"
-" of Conduct."
+"AR TREBUI sau NU AR TREBUI să le elibereze în conformitate cu REFEDS/%s Code "
+"of Conduct."
 
 #: www/html/src/DatabaseTexts.php:3
 msgid "The IDP has sent too many attributes."
@@ -598,8 +574,7 @@ msgstr "IdP-ul a trimis prea multe atribute."
 #: www/html/src/DatabaseTexts.php:5 www/html/src/DatabaseTexts.php:12
 #, php-format
 msgid "Received multi-value for %s, should be single-value!"
-msgstr ""
-"S-a primit valoare multiplă pentru %s, ar trebui să fie valoare unică!"
+msgstr "S-a primit valoare multiplă pentru %s, ar trebui să fie valoare unică!"
 
 #: www/html/src/DatabaseTexts.php:7
 msgid ""
@@ -693,8 +668,7 @@ msgstr "Atribute Anonymous lipsesc, DAR Entity Category Support este declarat"
 msgid ""
 "The IdP does NOT support Anonymous but it claims that it does in its "
 "metadata!!"
-msgstr ""
-"IdP-ul NU suportă Anonymous dar declară că o face în metadatele sale!!"
+msgstr "IdP-ul NU suportă Anonymous dar declară că o face în metadatele sale!!"
 
 #: www/html/src/DatabaseTexts.php:56
 msgid "Anonymous attribute missing, Entity Category Support missing"
@@ -706,35 +680,35 @@ msgstr "Pseudonymous necesită eduPersonAssurance."
 
 #: www/html/src/DatabaseTexts.php:62
 msgid ""
-"[[FED_NAME]] recommends that eduPersonAssurance contains "
-"[[RAF_ASSURANCE]]/IAP/low"
+"[[FED_NAME]] recommends that eduPersonAssurance contains [[RAF_ASSURANCE]]/"
+"IAP/low"
 msgstr ""
-"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină "
-"[[RAF_ASSURANCE]]/IAP/low"
+"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină [[RAF_ASSURANCE]]/"
+"IAP/low"
 
 #: www/html/src/DatabaseTexts.php:63
 msgid ""
-"[[FED_NAME]] recommends that eduPersonAssurance contains "
-"[[RAF_ASSURANCE]]/ID/unique"
+"[[FED_NAME]] recommends that eduPersonAssurance contains [[RAF_ASSURANCE]]/"
+"ID/unique"
 msgstr ""
-"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină "
-"[[RAF_ASSURANCE]]/ID/unique"
+"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină [[RAF_ASSURANCE]]/ID/"
+"unique"
 
 #: www/html/src/DatabaseTexts.php:64
 msgid ""
-"[[FED_NAME]] recommends that eduPersonAssurance contains "
-"[[RAF_ASSURANCE]]/ID/eppn-unique-no-reassign"
+"[[FED_NAME]] recommends that eduPersonAssurance contains [[RAF_ASSURANCE]]/"
+"ID/eppn-unique-no-reassign"
 msgstr ""
-"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină "
-"[[RAF_ASSURANCE]]/ID/eppn-unique-no-reassign"
+"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină [[RAF_ASSURANCE]]/ID/"
+"eppn-unique-no-reassign"
 
 #: www/html/src/DatabaseTexts.php:65
 msgid ""
-"[[FED_NAME]] recommends that eduPersonAssurance contains "
-"[[RAF_ASSURANCE]]/ATP/ePA-1m"
+"[[FED_NAME]] recommends that eduPersonAssurance contains [[RAF_ASSURANCE]]/"
+"ATP/ePA-1m"
 msgstr ""
-"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină "
-"[[RAF_ASSURANCE]]/ATP/ePA-1m"
+"[[FED_NAME]] recomandă ca eduPersonAssurance să conțină [[RAF_ASSURANCE]]/"
+"ATP/ePA-1m"
 
 #: www/html/src/DatabaseTexts.php:67
 msgid ""
@@ -867,8 +841,8 @@ msgstr "IdP-ul nu a trimis niciun atribut."
 #: www/html/src/DatabaseTexts.php:125
 msgid "The IDP has sent less than minumum numer of attributes for this test."
 msgstr ""
-"IdP-ul a trimis mai puține atribute decât numărul minim necesar pentru acest"
-" test."
+"IdP-ul a trimis mai puține atribute decât numărul minim necesar pentru acest "
+"test."
 
 #: www/html/src/DatabaseTexts.php:127
 msgid "Fulfils Code of Conduct"
@@ -913,11 +887,11 @@ msgstr "schacPersonalUniqueCode OK"
 
 #: www/html/src/DatabaseTexts.php:149
 msgid ""
-"schacPersonalUniqueCode in wrong case. Not "
-"urn:schac:personalUniqueCode:int:esi. Might create problem in some SP's"
+"schacPersonalUniqueCode in wrong case. Not urn:schac:personalUniqueCode:int:"
+"esi. Might create problem in some SP's"
 msgstr ""
-"schacPersonalUniqueCode în format incorect. Nu este "
-"urn:schac:personalUniqueCode:int:esi. Poate crea probleme în unele SP-uri"
+"schacPersonalUniqueCode în format incorect. Nu este urn:schac:"
+"personalUniqueCode:int:esi. Poate crea probleme în unele SP-uri"
 
 #: www/html/src/DatabaseTexts.php:151
 msgid "schacPersonalUniqueCode OK. BUT wrong case"
@@ -925,16 +899,16 @@ msgstr "schacPersonalUniqueCode OK. DAR format incorect"
 
 #: www/html/src/DatabaseTexts.php:153
 msgid ""
-"schacPersonalUniqueCode should start with "
-"urn:schac:personalUniqueCode:int:esi:"
+"schacPersonalUniqueCode should start with urn:schac:personalUniqueCode:int:"
+"esi:"
 msgstr ""
-"schacPersonalUniqueCode ar trebui să înceapă cu "
-"urn:schac:personalUniqueCode:int:esi:"
+"schacPersonalUniqueCode ar trebui să înceapă cu urn:schac:personalUniqueCode:"
+"int:esi:"
 
 #: www/html/src/DatabaseTexts.php:155
 msgid ""
-"schacPersonalUniqueCode not starting with "
-"urn:schac:personalUniqueCode:int:esi:"
+"schacPersonalUniqueCode not starting with urn:schac:personalUniqueCode:int:"
+"esi:"
 msgstr ""
 "schacPersonalUniqueCode nu începe cu urn:schac:personalUniqueCode:int:esi:"
 
@@ -974,8 +948,7 @@ msgstr "Lipsesc unele informații de asigurare."
 
 #: www/html/src/DatabaseTexts.php:175
 msgid ""
-"Assurance attribute release for current user follows REFED's "
-"recommendations."
+"Assurance attribute release for current user follows REFED's recommendations."
 msgstr ""
 "Eliberarea atributului de asigurare pentru utilizatorul curent respectă "
 "recomandările REFEDS."
@@ -987,8 +960,7 @@ msgstr "Trimite informațiile de asigurare recomandate."
 #: www/html/src/DatabaseTexts.php:180
 msgid "Authentication-instant hasn't updated after forceAuthn was requested."
 msgstr ""
-"Authentication-instant nu s-a actualizat după ce a fost solicitat "
-"forceAuthn."
+"Authentication-instant nu s-a actualizat după ce a fost solicitat forceAuthn."
 
 #: www/html/src/DatabaseTexts.php:182
 msgid "Identity Provider supports requests with REFEDS MFA and ForceAuthn."
@@ -1011,8 +983,7 @@ msgid "Supports requests with REFEDS MFA and ForceAuthn."
 msgstr "Suportă cereri cu REFEDS MFA și ForceAuthn."
 
 #: www/html/src/DatabaseTexts.php:189
-msgid ""
-"Identity Provider supports requests with REFEDS MFA but not ForceAuthn."
+msgid "Identity Provider supports requests with REFEDS MFA but not ForceAuthn."
 msgstr ""
 "Furnizorul de identitate suportă cereri cu REFEDS MFA dar nu ForceAuthn."
 
@@ -1038,8 +1009,7 @@ msgstr "Furnizorul de identitate suportă cereri fără AuthnContextClassRef."
 
 #: www/html/src/DatabaseTexts.php:197
 msgid "Identity Provider supports requests with PasswordProtectedTransport."
-msgstr ""
-"Furnizorul de identitate suportă cereri cu PasswordProtectedTransport."
+msgstr "Furnizorul de identitate suportă cereri cu PasswordProtectedTransport."
 
 #: www/html/src/DatabaseTexts.php:198
 msgid "Identity Provider supports requests with REFEDS SFA."
@@ -1156,16 +1126,16 @@ msgid "Identity Provider sessions attributes"
 msgstr "Atributele sesiunii furnizorului de identitate"
 
 #: www/html/src/Display.php:147 www/html/src/Display.php:185
-#: www/html/src/Display.php:216 www/html/src/IdPCheck.php:175
-#, php-format
-msgid "Test"
-msgstr "Test"
-
-#: www/html/src/Display.php:147 www/html/src/Display.php:185
 #: www/html/src/Display.php:216
 #, php-format
 msgid "Result"
 msgstr "Rezultat"
+
+#: www/html/src/Display.php:147 www/html/src/Display.php:185
+#: www/html/src/Display.php:216 www/html/src/IdPCheck.php:175
+#, php-format
+msgid "Test"
+msgstr "Test"
 
 #: www/html/src/Display.php:156
 #, php-format
@@ -1181,12 +1151,12 @@ msgid "European Student Identifier (any account)"
 msgstr "European Student Identifier (orice cont)"
 
 #: www/html/src/Display.php:248
-msgid "Run NEW test"
-msgstr "Rulați test NOU"
-
-#: www/html/src/Display.php:248
 msgid "Rerun test"
 msgstr "Reluați testul"
+
+#: www/html/src/Display.php:248
+msgid "Run NEW test"
+msgstr "Rulați test NOU"
 
 #: www/html/src/Display.php:299
 #, php-format
@@ -1217,26 +1187,51 @@ msgstr "filă necunoscută"
 msgid "Other results"
 msgstr "Alte rezultate"
 
-#: www/html/src/Helper.php:18
-msgid "IdP home Federation"
-msgstr "Federația de origine a IdP"
-
-#: www/html/src/HTML.php:42
+#: www/html/src/HTML.php:45
 msgid "Release check for"
 msgstr "Verificare eliberare pentru"
 
-#: www/html/src/HTML.php:79
+#: www/html/src/HTML.php:82
 msgid "Language"
 msgstr "Limbă"
 
-#: www/html/src/HTML.php:105
+#: www/html/src/HTML.php:107
 #, php-format
 msgid "About %s"
 msgstr "Despre %s"
 
-#: www/html/src/HTML.php:118
+#: www/html/src/HTML.php:120
 msgid "Contact us"
 msgstr "Contactați-ne"
+
+#: www/html/src/HTML.php:144
+#, php-format
+msgid "Attributes"
+msgstr "Atribute"
+
+#: www/html/src/HTML.php:148
+#, php-format
+msgid "Authentication"
+msgstr "Autentificare"
+
+#: www/html/src/HTML.php:153
+#, php-format
+msgid "Entity category"
+msgstr "Categorie entitate"
+
+#: www/html/src/HTML.php:157
+#, php-format
+msgid "ESI"
+msgstr "ESI"
+
+#: www/html/src/HTML.php:179
+#, php-format
+msgid "Select IdP"
+msgstr "Selectați IdP"
+
+#: www/html/src/Helper.php:18
+msgid "IdP home Federation"
+msgstr "Federația de origine a IdP"
 
 #: www/html/src/IdPCheck.php:174
 #, php-format
@@ -1402,11 +1397,11 @@ msgstr "Informații de asigurare ale utilizatorului."
 #: www/html/src/TestSuite.php:239
 msgid ""
 "This attribute should only be released if and only if the IdP organization "
-"has retrived the ORCID iD via the ORCID Collect & Connect service. ORCID iDs"
-" are persistent digital identifiers for individual researchers. Their "
-"primary purpose is to unambiguously and definitively link them with their "
-"scholarly work products. ORCID iDs are assigned, managed and maintained by "
-"the ORCID organization."
+"has retrived the ORCID iD via the ORCID Collect & Connect service. ORCID iDs "
+"are persistent digital identifiers for individual researchers. Their primary "
+"purpose is to unambiguously and definitively link them with their scholarly "
+"work products. ORCID iDs are assigned, managed and maintained by the ORCID "
+"organization."
 msgstr ""
 "Acest atribut trebuie eliberat dacă și numai dacă organizația IdP a obținut "
 "ORCID iD prin serviciul ORCID Collect & Connect. ORCID iD-urile sunt "
@@ -1423,9 +1418,9 @@ msgid ""
 "identity system where the identifier was created and assigned."
 msgstr ""
 "Un identificator cu domeniu pentru o persoană. Trebuie reprezentat în forma "
-"\"user@scope\" unde 'user' este un identificator bazat pe nume al persoanei,"
-" iar porțiunea \"scope\" TREBUIE să fie domeniul administrativ al sistemului"
-" de identitate unde identificatorul a fost creat și atribuit."
+"\"user@scope\" unde 'user' este un identificator bazat pe nume al persoanei, "
+"iar porțiunea \"scope\" TREBUIE să fie domeniul administrativ al sistemului "
+"de identitate unde identificatorul a fost creat și atribuit."
 
 #: www/html/src/TestSuite.php:241
 msgid "eduPersonAffiliation, scoped"
@@ -1483,8 +1478,8 @@ msgstr "Nume de familie"
 
 #: www/html/src/TestSuite.php:252
 msgid ""
-"Its value for a given subject is independent of the relying party to whom it"
-" is given."
+"Its value for a given subject is independent of the relying party to whom it "
+"is given."
 msgstr ""
 "Valoarea sa pentru un subiect dat este independentă de entitatea care o "
 "primește."

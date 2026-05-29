@@ -98,22 +98,22 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: www/html/index.php:98 www/html/result/index.php:98
+#: www/html/src/HTML.php:144
 #, php-format
 msgid "Attributes"
 msgstr ""
 
-#: www/html/index.php:102 www/html/result/index.php:102
+#: www/html/src/HTML.php:148
 #, php-format
 msgid "Authentication"
 msgstr ""
 
-#: www/html/index.php:107 www/html/result/index.php:107
+#: www/html/src/HTML.php:153
 #, php-format
 msgid "Entity category"
 msgstr ""
 
-#: www/html/index.php:111 www/html/result/index.php:111
+#: www/html/src/HTML.php:157
 #, php-format
 msgid "ESI"
 msgstr ""
@@ -127,7 +127,7 @@ msgstr ""
 msgid "%s IdP"
 msgstr ""
 
-#: www/html/index.php:139 www/html/result/index.php:139
+#: www/html/src/HTML.php:179
 #, php-format
 msgid "Select IdP"
 msgstr ""

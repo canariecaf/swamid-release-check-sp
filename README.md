@@ -104,3 +104,19 @@ You also need to update config.php with 2 values.
 #'entityID' => 'https://release-check.<org>.<tld>/shibboleth',
 #'trustProfile' => 'yourProfile',
 ```
+
+
+## Updating Translations
+
+For code changes:
+```
+xgettext --package-name="Release check" --package-version="1" --msgid-bugs-address="bjorn@sunet.se" --from-code=UTF-8 --sort-by-file --language=PHP --output www/html/locale/Common.pot $(find . -name "*.php" ! -name "*SWAMID*" ! -name "*CAF*")
+xgettext --package-name="Release check" --package-version="1" --msgid-bugs-address="bjorn@sunet.se" --from-code=UTF-8 --sort-by-file --language=PHP --output www/html/locale/CommonSWAMID.pot $(find . -name "*.php" ! -name "*CAF*")
+```
+
+For translation updates:
+```
+find . -name *.po -exec msgmerge --update --backup=none {} www/html/locale/Common.pot \;
+msgmerge --update --backup=none www/html/locale/sv_SE/LC_MESSAGES/Common.po www/html/locale/CommonSWAMID.pot
+```
+

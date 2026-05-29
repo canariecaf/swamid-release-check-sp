@@ -16,6 +16,9 @@ class HTML {
 
   protected array $federation = array();
 
+  const HTML_ACTIVE = ' active';
+  const HTML_TRUE = 'true';
+
   /**
    * Setup the class
    *
@@ -126,6 +129,77 @@ class HTML {
       $header .= $customHeader;
     }
     echo $header . "    </div>\n";
+  }
+
+  /** Print Navigation Tab Bar
+   *
+   * @return string
+   */
+  public function showNavTabs($tab) {
+    printf('    <div class="row">
+        <div class="col">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link%s" id="attributes-tab" data-toggle="tab" href="#attributes"
+                role="tab" aria-controls="attributes" aria-selected="%s">' . _('Attributes') . '</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link%s" id="acc-tab" data-toggle="tab" href="#acc"
+                role="tab" aria-controls="acc" aria-selected="%s">' . _('Authentication') . '</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link%s" id="entityCategory-tab" data-toggle="tab"
+                href="#entityCategory" role="tab" aria-controls="entityCategory"
+                aria-selected="%s">' . _('Entity category') . '</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link%s" id="esi-tab" data-toggle="tab" href="#esi"
+                role="tab" aria-controls="esi" aria-selected="%s">' . _('ESI') . '</a>
+            </li>
+          </ul>
+        </div>
+	<div class="col-4 text-right">%s',
+    $tab == 'attributes' ? self::HTML_ACTIVE : '', $tab == 'attributes' ? self::HTML_TRUE : '',
+    $tab == 'acc' ? self::HTML_ACTIVE : '', $tab == 'acc' ? self::HTML_TRUE : '',
+    $tab == 'entityCategory' ? self::HTML_ACTIVE : '', $tab == 'entityCategory' ? self::HTML_TRUE : '',
+    $tab == 'esi' ? self::HTML_ACTIVE : '', $tab == 'esi' ? self::HTML_TRUE : '',
+    "\n");
+  }
+
+
+  /**
+   * Print SelectIdP Block
+   *
+   * @return string
+   */
+  public function showSelectIdP() {
+
+    printf ('
+        <div class="collapse multi-collapse" id="selectIdP">
+          <h2>' . _('Select IdP') . '</h2>
+          <br>
+          <div class="row">
+            <div class="col">
+              <div id="DS-Thiss"></div>
+            </div>
+          </div>
+        </div><!-- end collapse selectIdP -->');
+
+    printf("
+      <!-- Include the Seamless Access Sign in Button & Discovery Service -->
+      <script src=\"//%s/thiss.js\"></script>
+      <script>
+        window.onload = function() {
+          // Render the Seamless Access button
+          thiss.DiscoveryComponent({
+            loginInitiatorURL: 'https://%s/Shibboleth.sso/%s?target=https://%s/result',
+            %s
+            %s
+          }).render('#DS-Thiss');
+        };
+      </script>\n", $this->federation['DS'], $this->config->basename(), $this->federation['LoginURL'], $this->config->basename(),
+      isset($this->federation['entityID']) ? sprintf('entityID: \'%s\',',$this->federation['entityID']) : '',
+      isset($this->federation['trustProfile']) ? sprintf('trustProfile: \'%s\',', $this->federation['trustProfile']) : '');
   }
 
   /**

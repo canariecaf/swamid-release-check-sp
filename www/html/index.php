@@ -90,33 +90,8 @@ if (isset($_GET['tab'])) {
 }
 $html->showHTMLHead();
 $html->showContentHeader();
-printf('    <div class="row">
-      <div class="col">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link%s" id="attributes-tab" data-toggle="tab" href="#attributes"
-              role="tab" aria-controls="attributes" aria-selected="%s">' . _('Attributes') . '</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link%s" id="acc-tab" data-toggle="tab" href="#acc"
-              role="tab" aria-controls="acc" aria-selected="%s">' . _('Authentication') . '</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link%s" id="entityCategory-tab" data-toggle="tab"
-              href="#entityCategory" role="tab" aria-controls="entityCategory"
-              aria-selected="%s">' . _('Entity category') . '</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link%s" id="esi-tab" data-toggle="tab" href="#esi"
-              role="tab" aria-controls="esi" aria-selected="%s">' . _('ESI') . '</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-4 text-right">%s',
-  $attributesActive, $attributesSelected,
-  $accActive, $accSelected,
-  $entityCategoryActive, $entityCategorySelected,
-  $esiActive, $esiSelected, "\n");
+$html->showNavTabs($tab);
+
 if ($result) {
         printf ("        <p><span style=\"white-space: nowrwap\"><b>%s</b><br>%s</span></p>\n",$displayName,$idp);
         $admin = $config->getExtendedClass('Admin');
@@ -126,25 +101,19 @@ if ($result) {
 } else {
   $adminButton = '';
 }
+
 printf ('        %s
         <a data-toggle="collapse" href="#selectIdP" aria-expanded="false" aria-controls="selectIdP">
           <button type="button" class="btn btn-outline-primary">' . _('%s IdP') . '</button>
         </a>
       </div>
     </div>
-    <br>
+    <br>',
+    $adminButton, $result ? _("Change") : _("Select") );
 
+$html->showSelectIdP();
 
-    <div class="collapse multi-collapse" id="selectIdP">
-      <h2>' . _('Select IdP') . '</h2>
-      <br>
-      <div class="row">
-        <div class="col">
-          <div id="DS-Thiss"></div>
-        </div>
-      </div>
-    </div><!-- end collapse selectIdP -->
-
+printf ('
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade%s%s" id="attributes"
         role="tabpanel" aria-labelledby="attributes-tab">
@@ -164,7 +133,7 @@ printf ('        %s
         <div class="collapse%s multi-collapse" id="attributes-instructions">
           %s
         </div><!-- end collapse -->%s',
-  $adminButton, $result ? _("Change") : _("Select"), $attributesShow, $attributesActive,
+  $attributesShow, $attributesActive,
   $config->basename(), $result ? _("Refresh") : _("Login") , $result ? "right" : "down",
   $instructionsSelected, $instructionsShow, $federation['instructionsAttributes'], "\n");
 
@@ -368,21 +337,8 @@ if ($result) {
   $display->showResultsESI($idp, $testrun);
 }
 
-printf("      </div><!-- End tab-pane esi -->
-      <!-- Include the Seamless Access Sign in Button & Discovery Service -->
-      <script src=\"//%s/thiss.js\"></script>
-      <script>
-        window.onload = function() {
-          // Render the Seamless Access button
-          thiss.DiscoveryComponent({
-            loginInitiatorURL: 'https://%s/Shibboleth.sso/%s?target=https://%s/result',
-            %s
-            %s
-          }).render('#DS-Thiss');
-        };
-      </script>\n", $federation['DS'], $config->basename(), $federation['LoginURL'], $config->basename(),
-      isset($federation['entityID']) ? sprintf('entityID: \'%s\',',$federation['entityID']) : '',
-      isset($federation['trustProfile']) ? sprintf('trustProfile: \'%s\',', $federation['trustProfile']) : '');
+printf("      </div><!-- End tab-pane esi -->");
+
 $html->showContentFooter();
 $html->showScripts($collapseIcons);
 
