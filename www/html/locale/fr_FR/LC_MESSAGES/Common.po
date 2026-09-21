@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Release check 1\n"
 "Report-Msgid-Bugs-To: bjorn@sunet.se\n"
 "POT-Creation-Date: 2026-04-23 13:02+0200\n"
-"PO-Revision-Date: 2026-09-21 12:32-0400\n"
+"PO-Revision-Date: 2026-09-21 14:11-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -122,7 +122,7 @@ msgstr "Attributs publiés par l'IdP"
 #: www/html/index.php:156 www/html/result/index.php:156
 #, php-format
 msgid "%s and show attributes"
-msgstr "\"%s et afficher les attributs"
+msgstr "%s et afficher les attributs"
 
 #: www/html/index.php:162 www/html/index.php:187 www/html/index.php:309
 #: www/html/index.php:354 www/html/result/index.php:162
@@ -304,7 +304,7 @@ msgstr "Résultat pour"
 #: www/html/src/Admin.php:232
 #, php-format
 msgid "%s tests run by %s"
-msgstr "\"%s tests exécutés par %s"
+msgstr "%s tests exécutés par %s"
 
 #: www/html/src/Admin.php:237 www/html/src/Admin.php:515
 #, php-format
@@ -685,9 +685,8 @@ msgid "Anonymous requires schacHomeOrganization."
 msgstr "Le mode anonyme nécessite le champ schacHomeOrganization."
 
 #: www/html/src/DatabaseTexts.php:40
-#, fuzzy
 msgid "Anonymous requires eduPersonScopedAffiliation."
-msgstr "Le mode anonyme nécessite eduPersonScopedAffiliation"
+msgstr "Le mode anonyme nécessite eduPersonScopedAffiliation."
 
 #: www/html/src/DatabaseTexts.php:42
 #, fuzzy
@@ -1208,14 +1207,14 @@ msgid ""
 "ForceAuthn."
 msgstr ""
 "Le fournisseur d'identité ne prend en charge ni les requêtes avec "
-"l'authentification multifactorielle REFEDS, ni ForceAuthn"
+"l'authentification multifactorielle REFEDS, ni ForceAuthn."
 
 #: www/html/src/DatabaseTexts.php:215
 msgid ""
 "Does neither support requests with no AuthnContextClassRef or ForceAuthn."
 msgstr ""
 "Ne prend en charge ni les requêtes sans AuthnContextClassRef ni celles avec "
-"ForceAuthn. "
+"ForceAuthn."
 
 #: www/html/src/DatabaseTexts.php:216
 msgid ""
@@ -1357,7 +1356,7 @@ msgstr "Langue"
 #: www/html/src/HTML.php:104
 #, php-format
 msgid "About %s"
-msgstr "À propos de %s "
+msgstr "À propos de %s"
 
 #: www/html/src/HTML.php:117
 msgid "Contact us"
@@ -1466,12 +1465,12 @@ msgstr "Non testé"
 #: www/html/src/IdPCheck.php:1053
 #, php-format
 msgid "AuthnContextClassRef status"
-msgstr "Statut AuthnContextClassRef "
+msgstr "Statut AuthnContextClassRef"
 
 #: www/html/src/IdPCheck.php:1054
 #, php-format
 msgid "ForceAuthn status"
-msgstr "État de ForceAuthn "
+msgstr "État de ForceAuthn"
 
 #: www/html/src/IdPCheck.php:1056
 msgid "AL1 status"
@@ -1548,7 +1547,7 @@ msgstr ""
 "identifiants ORCID Ce sont des identifiants numériques permanents pour "
 "chaque chercheur. Leur est de les associer de manière univoque et définitive "
 "à leurs travaux. Les identifiants ORCID iD sont attribués, gérés et mis à "
-"jour par l’organisation ORCID"
+"jour par l’organisation ORCID."
 
 #: www/html/src/TestSuite.php:240
 msgid ""
